@@ -7,21 +7,49 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		712FA1B92ACEFF1900901888 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 712FA1B82ACEFF1900901888 /* Poppins-SemiBold.ttf */; };
+		712FA1BE2ACF1AE300901888 /* ForecastWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712FA1BD2ACF1AE300901888 /* ForecastWeatherCollectionViewCell.swift */; };
+		712FA1C02ACF239A00901888 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 712FA1BF2ACF239A00901888 /* Poppins-Medium.ttf */; };
+		712FA1C32ACF2D8800901888 /* CurrentWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712FA1C22ACF2D8800901888 /* CurrentWeatherModel.swift */; };
+		712FA1C62ACF2DB900901888 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712FA1C52ACF2DB900901888 /* NetworkManager.swift */; };
 		714B597A2ACEDC6C00E5DDF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714B59792ACEDC6C00E5DDF3 /* AppDelegate.swift */; };
 		714B597C2ACEDC6C00E5DDF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714B597B2ACEDC6C00E5DDF3 /* SceneDelegate.swift */; };
-		714B597E2ACEDC6C00E5DDF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714B597D2ACEDC6C00E5DDF3 /* ViewController.swift */; };
+		714B597E2ACEDC6C00E5DDF3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714B597D2ACEDC6C00E5DDF3 /* MainViewController.swift */; };
 		714B59832ACEDC6F00E5DDF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 714B59822ACEDC6F00E5DDF3 /* Assets.xcassets */; };
 		714B59862ACEDC6F00E5DDF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 714B59842ACEDC6F00E5DDF3 /* LaunchScreen.storyboard */; };
+		714B59902ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714B598F2ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift */; };
+		714B59962ACEFC8800E5DDF3 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 714B59952ACEFC8800E5DDF3 /* Poppins-Regular.ttf */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		712FA1BA2ACF004000901888 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = pattern.proxy;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXFileReference section */
+		712FA1B82ACEFF1900901888 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		712FA1BD2ACF1AE300901888 /* ForecastWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
+		712FA1BF2ACF239A00901888 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		712FA1C22ACF2D8800901888 /* CurrentWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherModel.swift; sourceTree = "<group>"; };
+		712FA1C52ACF2DB900901888 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		714B59762ACEDC6C00E5DDF3 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		714B59792ACEDC6C00E5DDF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		714B597B2ACEDC6C00E5DDF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		714B597D2ACEDC6C00E5DDF3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		714B597D2ACEDC6C00E5DDF3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		714B59822ACEDC6F00E5DDF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		714B59852ACEDC6F00E5DDF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		714B59872ACEDC6F00E5DDF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		714B598F2ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
+		714B59952ACEFC8800E5DDF3 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +63,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		712FA1C12ACF2D7200901888 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				712FA1C22ACF2D8800901888 /* CurrentWeatherModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		712FA1C42ACF2DA600901888 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				712FA1C52ACF2DB900901888 /* NetworkManager.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
 		714B596D2ACEDC6C00E5DDF3 = {
 			isa = PBXGroup;
 			children = (
@@ -54,22 +98,45 @@
 		714B59782ACEDC6C00E5DDF3 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
-				714B59792ACEDC6C00E5DDF3 /* AppDelegate.swift */,
-				714B597B2ACEDC6C00E5DDF3 /* SceneDelegate.swift */,
-				714B597D2ACEDC6C00E5DDF3 /* ViewController.swift */,
-				714B598D2ACEDD5100E5DDF3 /* SupprotingFiles */,
+				712FA1C42ACF2DA600901888 /* NetworkManager */,
+				712FA1C12ACF2D7200901888 /* Model */,
+				714B598E2ACEDE1400E5DDF3 /* Application */,
+				714B597D2ACEDC6C00E5DDF3 /* MainViewController.swift */,
+				714B598F2ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift */,
+				712FA1BD2ACF1AE300901888 /* ForecastWeatherCollectionViewCell.swift */,
+				714B598D2ACEDD5100E5DDF3 /* SupportingFiles */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
 		};
-		714B598D2ACEDD5100E5DDF3 /* SupprotingFiles */ = {
+		714B598D2ACEDD5100E5DDF3 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
 				714B59822ACEDC6F00E5DDF3 /* Assets.xcassets */,
 				714B59842ACEDC6F00E5DDF3 /* LaunchScreen.storyboard */,
 				714B59872ACEDC6F00E5DDF3 /* Info.plist */,
+				714B59942ACEFAAE00E5DDF3 /* Fonts */,
 			);
-			path = SupprotingFiles;
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		714B598E2ACEDE1400E5DDF3 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				714B59792ACEDC6C00E5DDF3 /* AppDelegate.swift */,
+				714B597B2ACEDC6C00E5DDF3 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		714B59942ACEFAAE00E5DDF3 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				714B59952ACEFC8800E5DDF3 /* Poppins-Regular.ttf */,
+				712FA1B82ACEFF1900901888 /* Poppins-SemiBold.ttf */,
+				712FA1BF2ACF239A00901888 /* Poppins-Medium.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -84,6 +151,7 @@
 				714B59742ACEDC6C00E5DDF3 /* Resources */,
 			);
 			buildRules = (
+				712FA1BA2ACF004000901888 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -130,8 +198,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				714B59962ACEFC8800E5DDF3 /* Poppins-Regular.ttf in Resources */,
+				712FA1B92ACEFF1900901888 /* Poppins-SemiBold.ttf in Resources */,
 				714B59862ACEDC6F00E5DDF3 /* LaunchScreen.storyboard in Resources */,
 				714B59832ACEDC6F00E5DDF3 /* Assets.xcassets in Resources */,
+				712FA1C02ACF239A00901888 /* Poppins-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,9 +213,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				714B597E2ACEDC6C00E5DDF3 /* ViewController.swift in Sources */,
+				714B597E2ACEDC6C00E5DDF3 /* MainViewController.swift in Sources */,
+				712FA1BE2ACF1AE300901888 /* ForecastWeatherCollectionViewCell.swift in Sources */,
+				712FA1C32ACF2D8800901888 /* CurrentWeatherModel.swift in Sources */,
+				712FA1C62ACF2DB900901888 /* NetworkManager.swift in Sources */,
 				714B597A2ACEDC6C00E5DDF3 /* AppDelegate.swift in Sources */,
 				714B597C2ACEDC6C00E5DDF3 /* SceneDelegate.swift in Sources */,
+				714B59902ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +360,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8U5JRPA4B7;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WeatherApp/SupprotingFiles/Info.plist;
+				INFOPLIST_FILE = WeatherApp/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -314,7 +389,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8U5JRPA4B7;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WeatherApp/SupprotingFiles/Info.plist;
+				INFOPLIST_FILE = WeatherApp/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

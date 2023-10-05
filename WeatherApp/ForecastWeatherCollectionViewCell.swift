@@ -69,4 +69,10 @@ class ForecastWeatherCollectionViewCell: UICollectionViewCell {
         ])
     }
     
+    func configureCell(model: CurrentWeatherModel) {
+        
+//        timeOfWeatherLabel.text = "\(model.)"
+        
+    }
+    
 }

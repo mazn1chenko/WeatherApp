@@ -20,87 +20,30 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
     //MARK: ImageView
     let stateOfWeatherImage = UIImageView()
     
-    //MARK: detailsOfCurrentWeatherStackView
+    //MARK: DetailsOfCurrentWeatherStackView
     let detailsOfCurrentWeatherStackView = UIStackView()
     let speedAndPressureStackView = UIStackView()
     let chanceOfRainAndHudimityStackView = UIStackView()
     
-    let speedOfAirStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        let imageOfSpeed = UIImageView()
-        imageOfSpeed.image = UIImage(named: "carbon_location-current")
-        imageOfSpeed.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        stackView.addArrangedSubview(imageOfSpeed)
+    //MARK: WindSpeedStackView
+    let windSpeedStackView =  UIStackView()
+    let windSpeedImage = UIImageView()
+    let windSpeedLabel = UILabel()
 
-        let speedOfAirLabel = UILabel()
-        speedOfAirLabel.numberOfLines = 2
-        speedOfAirLabel.text = "3.7 km/h \nWind"
-        speedOfAirLabel.font = UIFont(name: "Poppins-Regular", size: 14)
-        stackView.addArrangedSubview(speedOfAirLabel)
-        
-        return stackView
-        
-        
-    }()
+    //MARK: PressureOfAirStackView
+    let pressureOfAirStackView = UIStackView()
+    let pressureImageView = UIImageView()
+    let pressureTextLabel = UILabel()
+
+    //MARK: ChanceOfRainStackView
+    let cloudyStackView = UIStackView()
+    let cloudyImageView = UIImageView()
+    let cloudyLabel = UILabel()
     
-    let pressureOfAirStackView: UIStackView = {
-        let stackView = UIStackView()
-
-        
-        let imageOfPressure = UIImageView()
-        imageOfPressure.image = UIImage(named: "temperature")
-        imageOfPressure.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        stackView.addArrangedSubview(imageOfPressure)
-
-        let pressureTextLabel = UILabel()
-        pressureTextLabel.numberOfLines = 2
-        pressureTextLabel.text = "1010 mbar \nPressure"
-        pressureTextLabel.font = UIFont(name: "Poppins-Regular", size: 14)
-        stackView.addArrangedSubview(pressureTextLabel)
-        
-        return stackView
-        
-        
-    }()
-    
-    let chanceOfRainStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        let imageOfSpeed = UIImageView()
-        imageOfSpeed.image = UIImage(named: "rain 1")
-        imageOfSpeed.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        stackView.addArrangedSubview(imageOfSpeed)
-
-        let speedOfAirLabel = UILabel()
-        speedOfAirLabel.numberOfLines = 2
-        speedOfAirLabel.text = "74% \nChance of rain"
-        speedOfAirLabel.font = UIFont(name: "Poppins-Regular", size: 14)
-        stackView.addArrangedSubview(speedOfAirLabel)
-        
-        return stackView
-        
-        
-    }()
-    
-    let hudimityStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        let imageOfHudimity = UIImageView()
-        imageOfHudimity.image = UIImage(named: "ion_water-outline")
-        imageOfHudimity.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        stackView.addArrangedSubview(imageOfHudimity)
-
-        let hudimityTextLabel = UILabel()
-        hudimityTextLabel.numberOfLines = 2
-        hudimityTextLabel.text = "83% \nHudimity 83%"
-        hudimityTextLabel.font = UIFont(name: "Poppins-Regular", size: 14)
-        stackView.addArrangedSubview(hudimityTextLabel)
-        
-        return stackView
-        
-        
-    }()
+    //MARK: HudimityStackView
+    let hudimityStackView = UIStackView()
+    let hudimitiImageView = UIImageView()
+    let hudimityTextLabel = UILabel()
     
     
     //MARK: Separator
@@ -122,9 +65,9 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
     private func setupViews() {
         
         locationNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        locationNameLabel.text = "Kharkiv"
-        locationNameLabel.font = .boldSystemFont(ofSize: 20)
-        
+        locationNameLabel.text = "Veleten"
+        locationNameLabel.font = UIFont(name: "Poppins-SemiBold", size: 24)
+
         stateOfWeatherImage.translatesAutoresizingMaskIntoConstraints = false
         stateOfWeatherImage.image = UIImage(named: "sunny-black")
         
@@ -132,7 +75,7 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         detailsOfCurrentWeatherStackView.axis = .horizontal
         detailsOfCurrentWeatherStackView.distribution = .fillEqually
         detailsOfCurrentWeatherStackView.spacing = 0
-                
+        
         speedAndPressureStackView.axis = .vertical
         speedAndPressureStackView.distribution = .fill
         speedAndPressureStackView.spacing = 5
@@ -141,27 +84,58 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         chanceOfRainAndHudimityStackView.distribution = .fill
         chanceOfRainAndHudimityStackView.spacing = 5
         
-        speedOfAirStackView.axis = .horizontal
-        speedOfAirStackView.distribution = .fill
-        speedOfAirStackView.spacing = 5
+        //MARK: WindSpeedStackView
+        windSpeedStackView.axis = .horizontal
+        windSpeedStackView.distribution = .fill
+        windSpeedStackView.spacing = 5
         
+        windSpeedLabel.numberOfLines = 2
+        windSpeedLabel.text = "3.7 km/h \nWind"
+        windSpeedLabel.font = UIFont(name: "Poppins-Regular", size: 14)
+    
+        windSpeedImage.image = UIImage(named: "carbon_location-current")
+        windSpeedImage.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+
+        //MARK: PressureOfAirStackView
         pressureOfAirStackView.axis = .horizontal
         pressureOfAirStackView.distribution = .fill
         pressureOfAirStackView.spacing = 5
+        
+        pressureImageView.image = UIImage(named: "temperature")
+        pressureImageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+
+        pressureTextLabel.numberOfLines = 2
+        pressureTextLabel.text = "1010 mbar \nPressure"
+        pressureTextLabel.font = UIFont(name: "Poppins-Regular", size: 14)
                 
-        chanceOfRainStackView.axis = .horizontal
-        chanceOfRainStackView.distribution = .fill
-        chanceOfRainStackView.spacing = 5
-                        
+        //MARK: ChanceOfRainStackView
+        cloudyStackView.axis = .horizontal
+        cloudyStackView.distribution = .fill
+        cloudyStackView.spacing = 5
+        
+        cloudyImageView.image = UIImage(named: "partly-cloudy-day")
+        cloudyImageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+
+        cloudyLabel.numberOfLines = 2
+        cloudyLabel.text = "74% \nChance of rain"
+        cloudyLabel.font = UIFont(name: "Poppins-Regular", size: 14)
+           
+        //MARK: HudimityStackView
         hudimityStackView.axis = .horizontal
         hudimityStackView.distribution = .fill
         hudimityStackView.spacing = 5
         
+        hudimitiImageView.image = UIImage(named: "ion_water-outline")
+        hudimitiImageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+
+        hudimityTextLabel.numberOfLines = 2
+        hudimityTextLabel.text = "83% \nHudimity 83%"
+        hudimityTextLabel.font = UIFont(name: "Poppins-Regular", size: 14)
+
+        
         pressureOfAirStackView.axis = .horizontal
         pressureOfAirStackView.distribution = .fill
         pressureOfAirStackView.spacing = 5
-        
-        
         
         currentlyDateLabel.translatesAutoresizingMaskIntoConstraints = false
         currentlyDateLabel.text = "Sunday | Nov 14"
@@ -176,7 +150,6 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         currentTempLabel.shadowColor?.withAlphaComponent(0.8)
         currentTempLabel.textAlignment = .center
 
-        
         stateOfWeatherTextLabel.translatesAutoresizingMaskIntoConstraints = false
         stateOfWeatherTextLabel.text = "Sunny"
         stateOfWeatherTextLabel.font = UIFont(name: "Poppins-Regular", size: 20)
@@ -191,12 +164,28 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         addSubview(locationNameLabel)
         addSubview(stateOfWeatherImage)
         addSubview(detailsOfCurrentWeatherStackView)
+        
         detailsOfCurrentWeatherStackView.addArrangedSubview(speedAndPressureStackView)
         detailsOfCurrentWeatherStackView.addArrangedSubview(chanceOfRainAndHudimityStackView)
-        speedAndPressureStackView.addArrangedSubview(speedOfAirStackView)
+        
+        speedAndPressureStackView.addArrangedSubview(windSpeedStackView)
         speedAndPressureStackView.addArrangedSubview(pressureOfAirStackView)
-        chanceOfRainAndHudimityStackView.addArrangedSubview(chanceOfRainStackView)
+        
+        chanceOfRainAndHudimityStackView.addArrangedSubview(cloudyStackView)
         chanceOfRainAndHudimityStackView.addArrangedSubview(hudimityStackView)
+        
+        windSpeedStackView.addArrangedSubview(windSpeedImage)
+        windSpeedStackView.addArrangedSubview(windSpeedLabel)
+        
+        pressureOfAirStackView.addArrangedSubview(pressureImageView)
+        pressureOfAirStackView.addArrangedSubview(pressureTextLabel)
+        
+        cloudyStackView.addArrangedSubview(cloudyImageView)
+        cloudyStackView.addArrangedSubview(cloudyLabel)
+        
+        hudimityStackView.addArrangedSubview(hudimitiImageView)
+        hudimityStackView.addArrangedSubview(hudimityTextLabel)
+        
         addSubview(currentlyDateLabel)
         addSubview(currentTempLabel)
         addSubview(stateOfWeatherTextLabel)
@@ -249,4 +238,32 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         layer.addSublayer(gradientLayer)
     }
     
+    func setupSpeedOfAirStackView() {
+        
+        
+    }
+    
+    func configurateCell(model: CurrentWeatherModel) {
+        
+        locationNameLabel.text = model.location?.name
+        currentTempLabel.text = "\(Int(model.current?.tempC ?? 000))°"
+        stateOfWeatherTextLabel.text = "\(model.current?.condition?.text ?? "NothingToSay")"
+        hudimityTextLabel.text = "\(model.current?.humidity ?? 000)% \nHudimity \(model.current?.humidity ?? 000)%"
+        windSpeedLabel.text = "\(model.current?.windKph ?? 000) km/h \nWind"
+        pressureTextLabel.text = "\(model.current?.pressureMB ?? 000) mbar \nPressure"
+        cloudyLabel.text = "\(model.current?.cloud ?? 000)% \nCloudy \(model.current?.cloud ?? 000)%"
+        
+        let timestamp = model.location?.localtimeEpoch
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp ?? 0))
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.dateFormat = "EEEE | d MMMM"
+
+        let formattedDate = dateFormatter.string(from: date)
+        currentlyDateLabel.text = formattedDate
+
+    }
+    
 }
+

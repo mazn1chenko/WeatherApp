@@ -42,6 +42,8 @@ class MainViewController: UIViewController {
     let backgroundViewForForecastWeather = UIView()
     
     let headerForForecastWeatherLabel = UILabel()
+    
+    var currentWeather = [CurrentWeatherModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +52,7 @@ class MainViewController: UIViewController {
         
         setupViews()
         setupLayouts()
+        network()
     }
     
     private func setupViews() {
@@ -123,6 +126,18 @@ class MainViewController: UIViewController {
         ])
         
     }
+    
+    func network() {
+        
+        NetworkManager.shared.fetchCurrentWeather { CurrentWeather in
+            self.currentWeather.append(CurrentWeather)
+            
+            DispatchQueue.main.async {
+                self.currentWeatherCollectionView.reloadData()
+            }
+        }
+        
+    }
 
 
 }
@@ -132,7 +147,7 @@ class MainViewController: UIViewController {
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == currentWeatherCollectionView {
-            return 2
+            return currentWeather.count
         }else {
             return 5
         }
@@ -142,13 +157,17 @@ extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == currentWeatherCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CurrentWeatherCollectionViewCell.cellId, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CurrentWeatherCollectionViewCell.cellId, for: indexPath) as? CurrentWeatherCollectionViewCell
             
-            return cell
+            cell?.configurateCell(model: currentWeather[indexPath.row])
+            
+            return cell!
         }else{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ForecastWeatherCollectionViewCell.cellId, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ForecastWeatherCollectionViewCell.cellId, for: indexPath) as? ForecastWeatherCollectionViewCell
             
-            return cell
+            //cell?.configureCell(model: currentWeather[indexPath.row])
+            
+            return cell!
         }
     }
     

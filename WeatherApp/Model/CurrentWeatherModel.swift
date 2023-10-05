@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - CurrentWeather
-struct CurrentWeather: Codable {
+struct CurrentWeatherModel: Codable {
     let location: Location?
     let current: Current?
 }
@@ -17,8 +17,7 @@ struct CurrentWeather: Codable {
 struct Current: Codable {
     let lastUpdatedEpoch: Int?
     let lastUpdated: String?
-    let tempC: Int?
-    let tempF: Double?
+    let tempC, tempF: Double?
     let isDay: Int?
     let condition: Condition?
     let windMph, windKph: Double?
@@ -27,8 +26,7 @@ struct Current: Codable {
     let pressureMB: Int?
     let pressureIn: Double?
     let precipMm, precipIn, humidity, cloud: Int?
-    let feelslikeC: Int?
-    let feelslikeF: Double?
+    let feelslikeC, feelslikeF: Double?
     let visKM, visMiles, uv: Int?
     let gustMph, gustKph: Double?
 
@@ -67,7 +65,8 @@ struct Condition: Codable {
 // MARK: - Location
 struct Location: Codable {
     let name, region, country: String?
-    let lat, lon: Double?
+    let lat: Int?
+    let lon: Double?
     let tzID: String?
     let localtimeEpoch: Int?
     let localtime: String?

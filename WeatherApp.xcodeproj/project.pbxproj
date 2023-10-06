@@ -21,6 +21,11 @@
 		714B59862ACEDC6F00E5DDF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 714B59842ACEDC6F00E5DDF3 /* LaunchScreen.storyboard */; };
 		714B59902ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714B598F2ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift */; };
 		714B59962ACEFC8800E5DDF3 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 714B59952ACEFC8800E5DDF3 /* Poppins-Regular.ttf */; };
+		71A818162AD0654900D0BFFC /* EnumForStateOfWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A818152AD0654900D0BFFC /* EnumForStateOfWeather.swift */; };
+		71A818192AD073ED00D0BFFC /* StateOfImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A818182AD073ED00D0BFFC /* StateOfImage.swift */; };
+		71A8181D2AD0773C00D0BFFC /* FormatterDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A8181C2AD0773C00D0BFFC /* FormatterDate.swift */; };
+		71A818202AD07D4F00D0BFFC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A8181F2AD07D4F00D0BFFC /* SettingsViewController.swift */; };
+		71A818232AD07E6600D0BFFC /* extraColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A818222AD07E6600D0BFFC /* extraColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -53,6 +58,11 @@
 		714B59872ACEDC6F00E5DDF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		714B598F2ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 		714B59952ACEFC8800E5DDF3 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		71A818152AD0654900D0BFFC /* EnumForStateOfWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumForStateOfWeather.swift; sourceTree = "<group>"; };
+		71A818182AD073ED00D0BFFC /* StateOfImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateOfImage.swift; sourceTree = "<group>"; };
+		71A8181C2AD0773C00D0BFFC /* FormatterDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatterDate.swift; sourceTree = "<group>"; };
+		71A8181F2AD07D4F00D0BFFC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		71A818222AD07E6600D0BFFC /* extraColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extraColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,12 +113,12 @@
 		714B59782ACEDC6C00E5DDF3 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				71A818172AD073C600D0BFFC /* Extension */,
+				71A818142AD0652800D0BFFC /* EnumForStateOfWeather */,
 				712FA1C42ACF2DA600901888 /* NetworkManager */,
 				712FA1C12ACF2D7200901888 /* Model */,
 				714B598E2ACEDE1400E5DDF3 /* Application */,
-				714B597D2ACEDC6C00E5DDF3 /* MainViewController.swift */,
-				714B598F2ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift */,
-				712FA1BD2ACF1AE300901888 /* ForecastWeatherCollectionViewCell.swift */,
+				71A8181E2AD07D2900D0BFFC /* ViewControllers */,
 				714B598D2ACEDD5100E5DDF3 /* SupportingFiles */,
 			);
 			path = WeatherApp;
@@ -142,6 +152,59 @@
 				712FA1BF2ACF239A00901888 /* Poppins-Medium.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		71A818142AD0652800D0BFFC /* EnumForStateOfWeather */ = {
+			isa = PBXGroup;
+			children = (
+				71A818152AD0654900D0BFFC /* EnumForStateOfWeather.swift */,
+			);
+			path = EnumForStateOfWeather;
+			sourceTree = "<group>";
+		};
+		71A818172AD073C600D0BFFC /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				71A818212AD07E5500D0BFFC /* UIColor */,
+				71A8181B2AD0771E00D0BFFC /* UILabel */,
+				71A8181A2AD076E700D0BFFC /* UIImageView */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		71A8181A2AD076E700D0BFFC /* UIImageView */ = {
+			isa = PBXGroup;
+			children = (
+				71A818182AD073ED00D0BFFC /* StateOfImage.swift */,
+			);
+			path = UIImageView;
+			sourceTree = "<group>";
+		};
+		71A8181B2AD0771E00D0BFFC /* UILabel */ = {
+			isa = PBXGroup;
+			children = (
+				71A8181C2AD0773C00D0BFFC /* FormatterDate.swift */,
+			);
+			path = UILabel;
+			sourceTree = "<group>";
+		};
+		71A8181E2AD07D2900D0BFFC /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				714B597D2ACEDC6C00E5DDF3 /* MainViewController.swift */,
+				714B598F2ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift */,
+				712FA1BD2ACF1AE300901888 /* ForecastWeatherCollectionViewCell.swift */,
+				71A8181F2AD07D4F00D0BFFC /* SettingsViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		71A818212AD07E5500D0BFFC /* UIColor */ = {
+			isa = PBXGroup;
+			children = (
+				71A818222AD07E6600D0BFFC /* extraColor.swift */,
+			);
+			path = UIColor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,14 +287,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71A818232AD07E6600D0BFFC /* extraColor.swift in Sources */,
+				71A8181D2AD0773C00D0BFFC /* FormatterDate.swift in Sources */,
+				71A818192AD073ED00D0BFFC /* StateOfImage.swift in Sources */,
 				714B597E2ACEDC6C00E5DDF3 /* MainViewController.swift in Sources */,
 				712FA1BE2ACF1AE300901888 /* ForecastWeatherCollectionViewCell.swift in Sources */,
 				712FA1C32ACF2D8800901888 /* CurrentWeatherModel.swift in Sources */,
 				712FA1C62ACF2DB900901888 /* NetworkManager.swift in Sources */,
+				71A818162AD0654900D0BFFC /* EnumForStateOfWeather.swift in Sources */,
 				714B597A2ACEDC6C00E5DDF3 /* AppDelegate.swift in Sources */,
 				712FA1CB2ACF4C2E00901888 /* ForecastWeatherModel.swift in Sources */,
 				714B597C2ACEDC6C00E5DDF3 /* SceneDelegate.swift in Sources */,
 				714B59902ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift in Sources */,
+				71A818202AD07D4F00D0BFFC /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

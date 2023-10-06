@@ -1,26 +1,27 @@
-//
-//  ForecastWeatherModel.swift
-//  WeatherApp
-//
-//  Created by m223 on 05.10.2023.
-//
 
 import Foundation
 
-// MARK: - ForecastWeather
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+// To parse the JSON, add this file to your project and do:
+//
+//   let forecastWeatherModel = try? JSONDecoder().decode(ForecastWeatherModel.self, from: jsonData)
+
+import Foundation
+
+// MARK: - ForecastWeatherModel
 struct ForecastWeatherModel: Codable {
-    let location: LocationInForecast?
-    let current: CurrentInForecast?
+    let location: Location?
+    let current: Current?
     let forecast: Forecast?
 }
 
 // MARK: - Current
-struct CurrentInForecast: Codable {
+struct Current: Codable {
     let lastUpdatedEpoch: Int?
     let lastUpdated: String?
     let tempC, tempF: Double?
     let isDay: Int?
-    let condition: ConditionInForecast?
+    let condition: Condition?
     let windMph, windKph: Double?
     let windDegree: Int?
     let windDir: WindDir?
@@ -58,7 +59,7 @@ struct CurrentInForecast: Codable {
 }
 
 // MARK: - Condition
-struct ConditionInForecast: Codable {
+struct Condition: Codable {
     let text: Text?
     let icon: String?
     let code: Int?
@@ -68,9 +69,6 @@ enum Text: String, Codable {
     case clear = "Clear"
     case cloudy = "Cloudy"
     case lightDrizzle = "Light drizzle"
-    case lightRain = "Light rain"
-    case lightRainShower = "Light rain shower"
-    case moderateRain = "Moderate rain"
     case overcast = "Overcast"
     case partlyCloudy = "Partly cloudy"
     case patchyRainPossible = "Patchy rain possible"
@@ -78,7 +76,6 @@ enum Text: String, Codable {
 }
 
 enum WindDir: String, Codable {
-    case nnw = "NNW"
     case nw = "NW"
     case sw = "SW"
     case w = "W"
@@ -172,8 +169,7 @@ struct Hour: Codable {
     let feelslikeC, feelslikeF, windchillC, windchillF: Double?
     let heatindexC, heatindexF, dewpointC, dewpointF: Double?
     let willItRain, chanceOfRain, willItSnow, chanceOfSnow: Int?
-    let visKM: Double?
-    let visMiles: Int?
+    let visKM, visMiles: Int?
     let gustMph, gustKph: Double?
     let uv: Int?
 
@@ -214,7 +210,7 @@ struct Hour: Codable {
 }
 
 // MARK: - Location
-struct LocationInForecast: Codable {
+struct Location: Codable {
     let name, region, country: String?
     let lat: Int?
     let lon: Double?

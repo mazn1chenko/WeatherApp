@@ -29,12 +29,12 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
     let windSpeedStackView =  UIStackView()
     let windSpeedImage = UIImageView()
     let windSpeedLabel = UILabel()
-
+    
     //MARK: PressureOfAirStackView
     let pressureOfAirStackView = UIStackView()
     let pressureImageView = UIImageView()
     let pressureTextLabel = UILabel()
-
+    
     //MARK: ChanceOfRainStackView
     let cloudyStackView = UIStackView()
     let cloudyImageView = UIImageView()
@@ -53,10 +53,10 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
     //MARK: Separator
     let separator = UIView()
     
-        
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         makingViewBackgroundGradient()
         setupViews()
         setupLayouts()
@@ -77,7 +77,7 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         locationNameLabel.translatesAutoresizingMaskIntoConstraints = false
         locationNameLabel.text = "Veleten"
         locationNameLabel.font = UIFont(name: "Poppins-SemiBold", size: 24)
-
+        
         stateOfWeatherImage.translatesAutoresizingMaskIntoConstraints = false
         stateOfWeatherImage.image = UIImage(named: "sunny-black")
         
@@ -105,10 +105,10 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         windSpeedLabel.numberOfLines = 2
         windSpeedLabel.text = "3.7 km/h \nWind"
         windSpeedLabel.font = UIFont(name: "Poppins-Regular", size: 15)
-    
+        
         windSpeedImage.image = UIImage(named: "carbon_location-current")
         windSpeedImage.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-
+        
         //MARK: ChanceOfRainStackViewSetup
         cloudyStackView.alignment = .center
         cloudyStackView.axis = .horizontal
@@ -121,7 +121,7 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         cloudyLabel.numberOfLines = 2
         cloudyLabel.text = "74% \nChance of rain"
         cloudyLabel.font = UIFont(name: "Poppins-Regular", size: 15)
-           
+        
         //MARK: HudimityStackViewSetup
         hudimityStackView.alignment = .center
         hudimityStackView.axis = .horizontal
@@ -130,20 +130,20 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         
         hudimitiImageView.image = UIImage(named: "water")
         hudimitiImageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-
+        
         hudimityTextLabel.numberOfLines = 2
         hudimityTextLabel.text = "83% \nHudimity 83%"
         hudimityTextLabel.font = UIFont(name: "Poppins-Regular", size: 15)
-
+        
         //MARK: PressureOfAirStackViewSetup
         
         pressureImageView.image = UIImage(named: "temperature")
         pressureImageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-
+        
         pressureTextLabel.numberOfLines = 2
         pressureTextLabel.text = "1010 mbar \nPressure"
         pressureTextLabel.font = UIFont(name: "Poppins-Regular", size: 15)
-                
+        
         pressureOfAirStackView.alignment = .center
         pressureOfAirStackView.axis = .horizontal
         pressureOfAirStackView.distribution = .fillProportionally
@@ -161,7 +161,7 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         currentTempLabel.shadowOffset = CGSize(width: 1, height: 1)
         currentTempLabel.shadowColor?.withAlphaComponent(0.8)
         currentTempLabel.textAlignment = .center
-
+        
         stateOfWeatherTextLabel.translatesAutoresizingMaskIntoConstraints = false
         stateOfWeatherTextLabel.text = "Sunny"
         stateOfWeatherTextLabel.font = UIFont(name: "Poppins-Regular", size: 20)
@@ -171,7 +171,7 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
         settingsButton.setImage(UIImage(named: "carbon_overflow-menu-vertical"), for: .normal)
         settingsButton.tintColor = .white
-
+        
         managerLocationButton.translatesAutoresizingMaskIntoConstraints = false
         managerLocationButton.setImage(UIImage(named: "akar-icons_plus"), for: .normal)
         managerLocationButton.tintColor = .white
@@ -183,14 +183,14 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: setupLayouts
-
+    
     private func setupLayouts() {
         
         //MARK: Label
         addSubview(currentlyDateLabel)
         addSubview(currentTempLabel)
         addSubview(stateOfWeatherTextLabel)
-
+        
         addSubview(locationNameLabel)
         addSubview(stateOfWeatherImage)
         addSubview(detailsOfCurrentWeatherStackView)
@@ -224,10 +224,10 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         addSubview(separator)
         
         NSLayoutConstraint.activate([
-        
+            
             locationNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
             locationNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-        
+            
             stateOfWeatherImage.bottomAnchor.constraint(equalTo: centerYAnchor, constant: -25),
             stateOfWeatherImage.centerXAnchor.constraint(equalTo: centerXAnchor),
             stateOfWeatherImage.heightAnchor.constraint(equalToConstant: frame.width / 3),
@@ -244,7 +244,7 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
             
             currentTempLabel.topAnchor.constraint(equalTo: currentlyDateLabel.bottomAnchor),
             currentTempLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-
+            
             stateOfWeatherTextLabel.topAnchor.constraint(equalTo: currentTempLabel.bottomAnchor),
             stateOfWeatherTextLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
@@ -259,9 +259,9 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
             settingsButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             settingsButton.heightAnchor.constraint(equalToConstant: 32),
             settingsButton.widthAnchor.constraint(equalToConstant: 32),
-
+            
             //MARK: SeparatorLayouts
-
+            
             separator.bottomAnchor.constraint(equalTo: detailsOfCurrentWeatherStackView.topAnchor),
             separator.centerXAnchor.constraint(equalTo: centerXAnchor),
             separator.widthAnchor.constraint(equalToConstant: frame.width - 40),
@@ -294,19 +294,19 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         
         locationNameLabel.text = model.location?.name
         
-        currentTempLabel.text = "\(Int(model.current?.tempC ?? 000))°"
+        currentTempLabel.text = "\(Int(NSDecimalNumber(decimal: model.current?.tempC ?? -0).doubleValue))°"
         
         stateOfWeatherTextLabel.text = "\(model.current?.condition?.text ?? "NothingToSay")"
         
-        hudimityTextLabel.text = "\(model.current?.humidity ?? 000)% \nHudimity \(model.current?.humidity ?? 000)%"
+        hudimityTextLabel.text = "\(model.current?.humidity ?? 000)% \n\("Hudimity".localized()) \(model.current?.humidity ?? 000)%"
         
-        windSpeedLabel.text = "\(model.current?.windKph ?? 000) km/h \nWind"
+        windSpeedLabel.text = "\(model.current?.windKph ?? 000) km/h \n\("Wind".localized())"
         
-        pressureTextLabel.text = "\(model.current?.pressureMB ?? 000) mbar \nPressure"
+        pressureTextLabel.text = "\(model.current?.pressureMB ?? 000) mbar \n\("Pressure".localized())"
         
-        cloudyLabel.text = "\(model.current?.cloud ?? 000)% \nCloudy \(model.current?.cloud ?? 000)%"
+        cloudyLabel.text = "\(model.current?.cloud ?? 000)% \n\("Cloudy".localized()) \(model.current?.cloud ?? 000)%"
         
-        currentlyDateLabel.formatterEEEEdMMMM(timeStamp: model.location?.localtimeEpoch)
+        currentlyDateLabel.formatterDateEEEEdMMMM(timeEpoch: model.location?.localtimeEpoch)
         
         stateOfWeatherImage.setWeatherIcon(withCode: model.current?.condition?.code, isDay: model.current?.isDay)
     }

@@ -7,13 +7,18 @@
 
 import UIKit
 
-    @main
+@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+        let selectedLanguage = UserDefaults.standard.string(forKey: "AppLanguage") ?? "en"
+        
+        UserDefaults.standard.set([selectedLanguage], forKey: "AppleLanguages")
+        UserDefaults.standard.synchronize()
+
         return true
     }
 

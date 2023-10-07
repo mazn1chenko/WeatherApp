@@ -1,0 +1,43 @@
+/* 
+  Localizable.strings
+  WeatherApp
+
+  Created by m223 on 07.10.2023.
+  
+*/
+"Місцезнаходження" = "Manage location";
+"Знайдіть Своє Місто" = "Search Your City";
+"Одиниці вимірювання" = "UNIT";
+"Тиск" = "Pressure";
+"Дощ" = "Rain";
+"Прогноз на 7 Днів" = "Forecast for 7 Days";
+"Вітер" = "Wind";
+"Хмарність" = "Cloudy";
+"Вологість" = "Humidity";
+"Температура вимірювання" = "Temperature unit";
+"Атмосферний тиск" = "Atmospheric pressure unit";
+"Швидкість вітру" = "Wind speed unit";
+"Налаштування" = "Settings";
+"Мова" = "Language";
+"Вітер" = "Wind";
+
+"Понеділок" = "Monday";
+"Вівторок" = "Tuesday";
+"Середа" = "Wednesday";
+"Четвер" = "Thursday";
+"П'ятниця" = "Friday";
+"Субота" = "Saturday";
+"Неділя" = "Sunday";
+
+"Січень" = "January";
+"Лютий" = "February";
+"Березень" = "March";
+"Квітень" = "April";
+"Травень" = "May";
+"Червень" = "June";
+"Липень" = "July";
+"Серпень" = "August";
+"Вересень" = "September";
+"Жовтень" = "October";
+"Листопад" = "November";
+"Грудень" = "December";

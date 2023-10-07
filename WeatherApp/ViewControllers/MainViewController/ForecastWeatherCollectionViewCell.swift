@@ -40,6 +40,7 @@ class ForecastWeatherCollectionViewCell: UICollectionViewCell {
         timeOfWeatherLabel.translatesAutoresizingMaskIntoConstraints = false
         timeOfWeatherLabel.text = "Now"
         timeOfWeatherLabel.font = UIFont(name: "Poppins-Medium", size: 18)
+        timeOfWeatherLabel.textAlignment = .center
         
         stateOfWeatherImageView.translatesAutoresizingMaskIntoConstraints = false
         stateOfWeatherImageView.image = UIImage(named: "rain 1")
@@ -47,9 +48,14 @@ class ForecastWeatherCollectionViewCell: UICollectionViewCell {
         temperatureOfWeatherLabel.translatesAutoresizingMaskIntoConstraints = false
         temperatureOfWeatherLabel.text = "20°/24°"
         temperatureOfWeatherLabel.font = UIFont(name: "Poppins-Regular", size: 18)
+        temperatureOfWeatherLabel.textAlignment = .center
+
         
-        
-        
+        chanceOfRainLabel.translatesAutoresizingMaskIntoConstraints = false
+        chanceOfRainLabel.text = "27% rain"
+        chanceOfRainLabel.font = UIFont(name: "Poppins-Regular", size: 18)
+        chanceOfRainLabel.textAlignment = .center
+
     }
     
     //MARK: setupLayouts
@@ -58,19 +64,21 @@ class ForecastWeatherCollectionViewCell: UICollectionViewCell {
         addSubview(timeOfWeatherLabel)
         addSubview(stateOfWeatherImageView)
         addSubview(temperatureOfWeatherLabel)
+        addSubview(chanceOfRainLabel)
         
         NSLayoutConstraint.activate([
             
             timeOfWeatherLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            timeOfWeatherLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            timeOfWeatherLabel.topAnchor.constraint(equalTo: topAnchor, constant: 1),
             
             stateOfWeatherImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            stateOfWeatherImageView.topAnchor.constraint(equalTo: timeOfWeatherLabel.bottomAnchor, constant: 5),
+            stateOfWeatherImageView.topAnchor.constraint(equalTo: timeOfWeatherLabel.bottomAnchor, constant: 1),
             
             temperatureOfWeatherLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            temperatureOfWeatherLabel.topAnchor.constraint(equalTo: stateOfWeatherImageView.bottomAnchor, constant: 5)
+            temperatureOfWeatherLabel.topAnchor.constraint(equalTo: stateOfWeatherImageView.bottomAnchor, constant: 1),
             
-            
+            chanceOfRainLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -1),
+            chanceOfRainLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
             
         ])
     }
@@ -79,11 +87,17 @@ class ForecastWeatherCollectionViewCell: UICollectionViewCell {
 
     func configureCell(index: Hour) {
         
-        temperatureOfWeatherLabel.text = "\(Int(index.tempC ?? 000.0))°"
+        temperatureOfWeatherLabel.text = "\(Int(NSDecimalNumber(decimal: index.tempC ?? -0).doubleValue))°"
+        
+//        "\(Int(NSDecimalNumber(decimal: model.current?.tempC ?? -0).doubleValue))"
                 
-        timeOfWeatherLabel.formatterHHDD(timeEpoch: index.timeEpoch)
+        timeOfWeatherLabel.formatterDateHHmm(timeEpoch: index.timeEpoch)
+        
+        
+        chanceOfRainLabel.text = "\(index.chanceOfRain ?? 0)% \("rain".localized())"
         
         stateOfWeatherImageView.setWeatherIcon(withCode: index.condition?.code, isDay: index.isDay)
+        
         
     }
     

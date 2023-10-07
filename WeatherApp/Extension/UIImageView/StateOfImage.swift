@@ -17,11 +17,9 @@ extension UIImageView {
             if let image = UIImage(named: "\(folderName)/\(iconCode)") {
                 self.image = image
             } else {
-                self.image = UIImage(named: "\(folderName)/392") // Используйте путь к изображению по умолчанию или другую обработку ошибки
+                self.image = UIImage(named: "\(folderName)/392") 
             }
         } else {
-            // Код состояния погоды не найден в enum
-            // Обработайте эту ситуацию по вашему усмотрению
         }
     }
 }

@@ -44,9 +44,8 @@ final class MainViewController: UIViewController {
     let headerForForecastWeatherLabel = UILabel()
     
     var currentWeatherArray = [CurrentWeatherModel]()
-    
-    var forecastWeatherArray = [ForecastWeatherModel]()
-    var hour = [Hour]()
+        
+    var timeForForecastWeather2DaysArray = [Hour]()
     
     //MARK: - ViewDidLoad
     
@@ -84,7 +83,7 @@ final class MainViewController: UIViewController {
         backgroundViewForForecastWeather.backgroundColor = .backgroundOfView
         
         headerForForecastWeatherLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerForForecastWeatherLabel.formatedCurrentData()
+        headerForForecastWeatherLabel.formatterDateEEEEMMMdd()
 
         headerForForecastWeatherLabel.font = UIFont(name: "Poppins-Medium", size: 18)
         
@@ -92,9 +91,10 @@ final class MainViewController: UIViewController {
         forecastFor7DaysStackView.axis = .horizontal
         forecastFor7DaysStackView.distribution = .equalCentering
         
-        forecastFor7DaysBottom.setTitle("Forecast for 7 Days", for: .normal)
+        forecastFor7DaysBottom.setTitle("Forecast for 7 Days".localized(), for: .normal)
         forecastFor7DaysBottom.titleLabel?.font = UIFont(name: "Poppins-Medium", size: 18)
         forecastFor7DaysBottom.setTitleColor(.backgroundOfView, for: .normal)
+        forecastFor7DaysBottom.addTarget(self, action: #selector(presentForecast7DayVC), for: .touchUpInside)
         
         forecastFor7DaysImageView.image = UIImage(named: "eva_arrow-ios-downward-outline")
         
@@ -120,13 +120,16 @@ final class MainViewController: UIViewController {
             currentWeatherCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             currentWeatherCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -(view.frame.height / 4)),
             
-            forecastFor7DaysStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            forecastFor7DaysStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 5),
             forecastFor7DaysStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            forecastFor7DaysImageView.heightAnchor.constraint(equalToConstant: 32),
+            forecastFor7DaysImageView.widthAnchor.constraint(equalToConstant: 32),
             
             forecastWeatherCollectionView.topAnchor.constraint(equalTo: headerForForecastWeatherLabel.bottomAnchor, constant: 5),
             forecastWeatherCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             forecastWeatherCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            forecastWeatherCollectionView.bottomAnchor.constraint(equalTo: forecastFor7DaysStackView.topAnchor, constant: -10),
+            forecastWeatherCollectionView.bottomAnchor.constraint(equalTo: forecastFor7DaysStackView.topAnchor, constant: -1),
             
             backgroundViewForForecastWeather.topAnchor.constraint(equalTo: currentWeatherCollectionView.bottomAnchor, constant: 10),
             backgroundViewForForecastWeather.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -145,6 +148,8 @@ final class MainViewController: UIViewController {
     
     func gettingDataForCurrentWeather() {
         
+        self.currentWeatherArray.removeAll()
+        
         NetworkManager.shared.fetchCurrentWeather { CurrentWeather in
             self.currentWeatherArray.append(CurrentWeather)
             
@@ -153,9 +158,12 @@ final class MainViewController: UIViewController {
             }
         }
     }
+    
     func gettingDataForForecastWeatherForDay() {
-        NetworkManager.shared.fetchForecastWeatherFor7Days { Forecastweather in
-            self.forecastWeatherArray = [Forecastweather]
+        
+        self.timeForForecastWeather2DaysArray.removeAll()
+        
+        NetworkManager.shared.fetchForcatsWeatherFor2Days { Forecastweather in
             
             var todayTime = Forecastweather.forecast?.forecastday?[0].hour ?? []
             
@@ -170,7 +178,7 @@ final class MainViewController: UIViewController {
             
             todayTime += Forecastweather.forecast?.forecastday?[1].hour ?? []
             
-            self.hour = todayTime
+            self.timeForForecastWeather2DaysArray = todayTime
             
             DispatchQueue.main.async {
                 
@@ -181,13 +189,48 @@ final class MainViewController: UIViewController {
     
     }
     
+    
     //MARK: Objc func for targer/button
     
     @objc func openSettingsView() {
         
         navigationController?.pushViewController(SettingsViewController(), animated: true)
     }
+    
+    @objc func openManagerLocation() {
+        
+        let viewControllerToPush = ManageLocationViewController()
+
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = .push
+        transition.subtype = .fromLeft
+
+        navigationController?.view.layer.add(transition, forKey: kCATransition)
+        navigationController?.pushViewController(viewControllerToPush, animated: false)
+    }
+    
+    @objc func presentForecast7DayVC() {
+        
+        navigationController?.present(ForecastWeatherFor7DaysViewController(), animated: true)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        gettingDataForCurrentWeather()
+        gettingDataForForecastWeatherForDay()
+        
+        DispatchQueue.main.async {
+            self.forecastWeatherCollectionView.reloadData()
+            self.currentWeatherCollectionView.reloadData()
+        }
+    }
+
 }
+
+
 
 //MARK: - UICollectionViewDataSource
 
@@ -196,7 +239,7 @@ extension MainViewController: UICollectionViewDataSource {
         if collectionView == currentWeatherCollectionView {
             return currentWeatherArray.count
         }else {
-            return hour.count
+            return timeForForecastWeather2DaysArray.count
         }
         
     }
@@ -208,11 +251,12 @@ extension MainViewController: UICollectionViewDataSource {
             
             cell?.configurateCell(model: currentWeatherArray[indexPath.row])
             cell?.settingsButton.addTarget(self, action: #selector(openSettingsView), for: .touchUpInside)
+            cell?.managerLocationButton.addTarget(self, action: #selector(openManagerLocation), for: .touchUpInside)
             return cell!
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ForecastWeatherCollectionViewCell.cellId, for: indexPath) as? ForecastWeatherCollectionViewCell
 
-            cell?.configureCell(index: hour[indexPath.row])
+            cell?.configureCell(index: timeForForecastWeather2DaysArray[indexPath.row])
             
             return cell!
         }
@@ -245,19 +289,5 @@ extension MainViewController: UICollectionViewDelegate {
     
 }
 
-extension UILabel {
-    
-    func formatedCurrentData() {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE | MMM dd"
-        let currentDate = Date()
-
-        let formattedDate = dateFormatter.string(from: currentDate)
-        
-        self.text = formattedDate
-        
-    }
-}
 
 

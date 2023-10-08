@@ -1,8 +1,8 @@
 # WeatherApp
 
-Отримання даних із сервера про поточну погоду, на поточний день. Так само отримання даних про поточну погоду на тиждень вперед. Локація визначається за геолокацією (IP) користувача, або ж користувач може ввести локацію вручну. Якщо під час повторного входу в застосунок не буде під'єднання до інтернету - буде відображено останню збережену сесію, у разі перепід'єднання до інтернету будуть дані оновлені на геолокацію користувача. Локалізація двома мовами: англійська та українська.
+Відображення даних про погоду за геолокацією користувача. Або ввести вручну конкретне місто. Прогноз погоди на день і на весь тиждень. Збереження останньої сесії і відображення її коли немає інтернету. Локалізація двома мовами: англійською та українською.
 
-Receiving data from the server about the current weather for the current day. Also receiving data about the current day for a week ahead. The location is determined by the geolocation (IP) of the user, or the user can enter the location manually. If when re-entering the application will not be connected to the Internet - the last saved session will be displayed, when reconnecting to the Internet will be updated to the user's geolocation. Localization into two languages: English and Ukrainian. 
+Display weather data based on the user's geolocation. Or manually enter a specific city. Weather forecast for the day and for the whole week. Saves the last session and displays it when there is no internet connection. Localization in two languages: English and Ukrainian.
 
 https://github.com/mazn1chenko/WeatherApp/assets/112626390/d963488b-bfda-49cf-9d83-0140f7e8fa8d
 

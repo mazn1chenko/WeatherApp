@@ -12,9 +12,9 @@ final class NetworkManager {
     
     static let shared = NetworkManager()
     
-    var location = "London"
+    var location = ""
     
-    func createUrlForChecking(_ word: String) -> String{
+    fileprivate func createUrlForChecking(_ word: String) -> String{
         
         let tunnel = "https://"
         let server = "api.weatherapi.com/v1/"
@@ -22,46 +22,10 @@ final class NetworkManager {
         let key = "8168b1aed18f4e6caf6110333230510"
         let end = "&q="
         let daysAndLang = "&lang=uk"
+        
         let url = tunnel + server + endpoint + key + end + word + daysAndLang
         return url
 
-    }
-    func createUrlforCurrentWeather() -> String {
-        
-        let tunnel = "https://"
-        let server = "api.weatherapi.com/v1/"
-        let endpoint = "current.json?key="
-        let key = "8168b1aed18f4e6caf6110333230510"
-        let end = "&q="
-        let daysAndLang = "&lang=uk"
-        let url = tunnel + server + endpoint + key + end + location + daysAndLang
-        return url
-    }
-    
-    func createUrlforForecastWeatherFor2Days() -> String {
-        
-        let tunnel = "https://"
-        let server = "api.weatherapi.com/v1/"
-        let endpoint = "forecast.json?key="
-        let key = "8168b1aed18f4e6caf6110333230510"
-        let end = "&q="
-        let daysAndLang = "&days=2&lang=uk"
-        let url = tunnel + server + endpoint + key + end + location + daysAndLang
-        return url
-    }
-    
-
-
-    func createUrlforForecastWeatherFor7DaysUrl() -> String {
-        
-        let tunnel = "https://"
-        let server = "api.weatherapi.com/v1/"
-        let endpoint = "forecast.json?key="
-        let key = "8168b1aed18f4e6caf6110333230510"
-        let end = "&q="
-        let daysAndLang = "&days=7&lang=uk"
-        let url = tunnel + server + endpoint + key + end + location + daysAndLang
-        return url
     }
     
     func checkAPIStatus(apiKeyword: String, completion: @escaping (Result<Int, Error>) -> Void) {
@@ -78,7 +42,7 @@ final class NetworkManager {
                 
                 case .failure(let error):
                     completion(.failure(error))
-                    self.location = "London"
+                    self.location = ""
                 }
             }
     }
@@ -170,7 +134,7 @@ final class NetworkManager {
                                 completion(.failure(NSError(domain: "ParsingError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse IP address from JSON"])))
                             }
                         } catch {
-                            self.location = "London"
+                            self.location = ""
                             print("Not working API")
                             completion(.failure(error))
                         }
@@ -183,4 +147,57 @@ final class NetworkManager {
             }
     }
 
+}
+
+
+//MARK: Creating personal urls for every method
+extension NetworkManager {
+    
+    fileprivate func createUrlforCurrentWeather() -> String {
+        
+        let tunnel = "https://"
+        let server = "api.weatherapi.com/v1/"
+        let endpoint = "current.json?key="
+        let key = "8168b1aed18f4e6caf6110333230510"
+        let end = "&q="
+        var daysAndLang = ""
+        if UserDefaults.standard.string(forKey: "AppLanguage") == "uk"{
+            daysAndLang = "&lang=uk"
+        }else{
+            daysAndLang = "&lang=eu"
+        }
+        let url = tunnel + server + endpoint + key + end + location + daysAndLang
+        return url
+    }
+    
+    fileprivate func createUrlforForecastWeatherFor2Days() -> String {
+        
+        let tunnel = "https://"
+        let server = "api.weatherapi.com/v1/"
+        let endpoint = "forecast.json?key="
+        let key = "8168b1aed18f4e6caf6110333230510"
+        let end = "&q="
+        var daysAndLang = ""
+        if UserDefaults.standard.string(forKey: "AppLanguage") == "uk"{
+            daysAndLang = "&days=2&lang=uk"
+        }else{
+            daysAndLang = "&days=2&lang=eu"
+        }
+        let url = tunnel + server + endpoint + key + end + location + daysAndLang
+        return url
+    }
+    
+
+    fileprivate func createUrlforForecastWeatherFor7DaysUrl() -> String {
+        
+        let tunnel = "https://"
+        let server = "api.weatherapi.com/v1/"
+        let endpoint = "forecast.json?key="
+        let key = "8168b1aed18f4e6caf6110333230510"
+        let end = "&q="
+        let daysAndLang = "&days=7&lang=uk"
+        let url = tunnel + server + endpoint + key + end + location + daysAndLang
+        return url
+    }
+    
 }

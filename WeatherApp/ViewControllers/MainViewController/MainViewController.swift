@@ -10,7 +10,7 @@ import Reachability
 
 final class MainViewController: UIViewController {
     
-    let currentWeatherCollectionView: UICollectionView = {
+    private let currentWeatherCollectionView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -22,7 +22,7 @@ final class MainViewController: UIViewController {
         
     }()
     
-    let forecastWeatherCollectionView: UICollectionView = {
+    private let forecastWeatherCollectionView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -34,19 +34,19 @@ final class MainViewController: UIViewController {
         
     }()
     
-    let forecastFor7DaysStackView = UIStackView()
+    private let forecastFor7DaysStackView = UIStackView()
     
-    let forecastFor7DaysBottom = UIButton()
+    private let forecastFor7DaysBottom = UIButton()
     
-    let forecastFor7DaysImageView = UIImageView()
+    private let forecastFor7DaysImageView = UIImageView()
     
-    let backgroundViewForForecastWeather = UIView()
+    private let backgroundViewForForecastWeather = UIView()
     
-    let headerForForecastWeatherLabel = UILabel()
+    private let headerForForecastWeatherLabel = UILabel()
     
-    var currentWeatherArray = [CurrentWeatherModel]()
+    private var currentWeatherArray = [CurrentWeatherModel]()
         
-    var timeForForecastWeather2DaysArray = [Hour]()
+    private var timeForForecastWeather2DaysArray = [Hour]()
     
     
     //MARK: - ViewDidLoad
@@ -182,10 +182,13 @@ final class MainViewController: UIViewController {
         gettingDataForCurrentWeather()
         gettingDataForForecastWeatherForDay()
         
+        //getApiUser()
+
         DispatchQueue.main.async {
             self.forecastWeatherCollectionView.reloadData()
             self.currentWeatherCollectionView.reloadData()
         }
+        
     }
 
 }
@@ -246,19 +249,22 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 //MARK: - UICollectionViewDelegate
 
 extension MainViewController: UICollectionViewDelegate {
-    
+   //empty
+   //created for future functions
     
 }
 
-//MARK: - MainViewController Network
+//MARK: - Network
 
 extension MainViewController {
     
     //MARK: Getting data with connection to internet
     private func gettingDataForCurrentWeather() {
+        
         NetworkManager.shared.fetchCurrentWeather { [weak self] CurrentWeather in
             guard let self = self else { return }
-
+            
+            
             self.currentWeatherArray.removeAll()
             self.currentWeatherArray.append(CurrentWeather)
 
@@ -266,9 +272,10 @@ extension MainViewController {
             if let encodedData = try? JSONEncoder().encode(self.currentWeatherArray) {
                 UserDefaults.standard.removeObject(forKey: "LastSessionCurrentWeather")
                 UserDefaults.standard.set(encodedData, forKey: "LastSessionCurrentWeather")
-                UserDefaults.standard.synchronize() // Убедитесь, что данные сохранены немедленно
+                UserDefaults.standard.synchronize()
+
             } else {
-                print("Cannot load data into UserDefaults")
+                print("Ошибка при кодировании данных.")
             }
 
             DispatchQueue.main.async {
@@ -315,22 +322,23 @@ extension MainViewController {
     
     
     //MARK: Last Session Data
+    
     private func gettingLastSesionDataForCurrentWeather() {
         
-            self.currentWeatherArray.removeAll()
-        if let savedData = UserDefaults.standard.data(forKey: "LastSessionCurrentWeather"),
-           let currentWeatherArray = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? [CurrentWeatherModel] {
-            
-            self.currentWeatherArray = currentWeatherArray
-            
-            self.currentWeatherCollectionView.reloadData()
-            
-        } else {
+        if let savedData = UserDefaults.standard.data(forKey: "LastSessionCurrentWeather") {
+            if let loadedArray = try? JSONDecoder().decode([CurrentWeatherModel].self, from: savedData) {
+                self.currentWeatherArray.append(loadedArray.last!)
+                self.currentWeatherCollectionView.reloadData()
 
-            print("gg in gettingLastSesionDataForCurrentWeather")
+            } else {
+                print("Ошибка при распаковке данных из UserDefaults.")
+            }
+        } else {
+            print("Данные отсутствуют в UserDefaults.")
         }
             
-        
+        self.currentWeatherCollectionView.reloadData()
+
     }
     
     private func gettingLastSesionDataForForecastWeatherForDay() {
@@ -350,7 +358,8 @@ extension MainViewController {
         
     }
     
-    func getApiUser() {
+    //MARK: Main internter function
+    private func getApiUser() {
         
         NetworkManager.shared.getIPAddress { Location in
             
@@ -371,26 +380,36 @@ extension MainViewController {
     
     private func checkInternetConnection() -> Bool {
         do {
-
             let reachability = try Reachability()
-
             try reachability.startNotifier()
-
 
             let currentStatus = reachability.connection
             switch currentStatus {
             case .wifi, .cellular:
                 return true
             case .unavailable:
+                
+                Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
+                    self.checkAndRetryNetworkRequest()
+                }
                 return false
             }
         } catch {
-            print("Error initializing Reachability: \(error)")
+            return false
         }
+    }
+    
+    private func checkAndRetryNetworkRequest() {
+        if checkInternetConnection() {
 
-        return false
+            getApiUser()
+        } else {
+            
+        }
     }
 
+    //MARK: Network alert
+    
     private func showNoInternetAlert() {
         let alert = UIAlertController(title: "No Internet Connection",
                                       message: "Please check your internet connection and try again.",

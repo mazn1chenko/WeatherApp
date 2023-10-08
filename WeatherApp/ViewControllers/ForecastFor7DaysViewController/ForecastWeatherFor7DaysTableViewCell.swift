@@ -13,10 +13,10 @@ class ForecastWeatherFor7DaysTableViewCell: UITableViewCell {
     
     static let cellId = "ForecastWeatherFor7DaysTableViewCell"
     
-    let nameOfDayLabel = UILabel()
-    let stateOfWeatherImage = UIImageView()
-    let chanceOfRainLabel = UILabel()
-    let minMaxTemperatureLabel = UILabel()
+    private let nameOfDayLabel = UILabel()
+    private let stateOfWeatherImage = UIImageView()
+    private let chanceOfRainLabel = UILabel()
+    private let minMaxTemperatureLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,6 +29,10 @@ class ForecastWeatherFor7DaysTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //MARK: - Functions setupViews and setupLayouts
+    
+    //MARK:  setupViews
     
     private func setupViews() {
         
@@ -47,6 +51,8 @@ class ForecastWeatherFor7DaysTableViewCell: UITableViewCell {
         minMaxTemperatureLabel.font = UIFont(name: "Poppins-Regular", size: 16)
         
     }
+    
+    //MARK: setupLayouts
     
     private func setupLayouts() {
         addSubview(nameOfDayLabel)
@@ -72,12 +78,13 @@ class ForecastWeatherFor7DaysTableViewCell: UITableViewCell {
         ])
         
     }
+    //MARK: - Configure cell
     
     func configureCell(model: Forecastday) {
         
         nameOfDayLabel.formatterDateEEEE(from: Decimal(model.dateEpoch ?? 00))
         
-        chanceOfRainLabel.text = "\(model.day?.dailyChanceOfRain ?? -0)% rain"
+        chanceOfRainLabel.text = "\(model.day?.dailyChanceOfRain ?? -0)% \(("rain").localized())"
         
         stateOfWeatherImage.setWeatherIcon(withCode: model.day?.condition?.code, isDay: 1)
         

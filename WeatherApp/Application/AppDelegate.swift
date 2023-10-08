@@ -38,15 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         
-//        if let savedData = UserDefaults.standard.data(forKey: "LastSessionCurrentWeather"),
-//           let currentWeatherArray = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? [CurrentWeatherModel] {
-//
-//            print(currentWeatherArray[0].location?.country)
-//
-//        } else {
-//
-//            print("gg in gettingLastSesionDataForCurrentWeather")
-//        }
         
     }
 

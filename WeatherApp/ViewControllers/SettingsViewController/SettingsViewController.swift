@@ -11,36 +11,36 @@ import UIKit
 
 final class SettingsViewController: UIViewController {
     
-    let backgroundView = UIView()
+    private let backgroundView = UIView()
     
     //MARK: Buttons
-    let customBackButton = UIButton(type: .system)
-    let aboutButton = UIButton(type: .system)
-    let privacyPolicyButton = UIButton(type: .system)
+    private let customBackButton = UIButton(type: .system)
+    private let aboutButton = UIButton(type: .system)
+    private let privacyPolicyButton = UIButton(type: .system)
     
     //MARK: Labels
-    let titleLabel = UILabel()
-    let unitLabel = UILabel()
-    let extraLabel = UILabel()
+    private let titleLabel = UILabel()
+    private let unitLabel = UILabel()
+    private let extraLabel = UILabel()
     
     //MARK: Language
-    let languageLabel = UILabel()
-    let languageSegmentControl = UISegmentedControl(items: ["ENG", "UA"])
-    var selectedLanguageIndex = 0
+    private let languageLabel = UILabel()
+    private let languageSegmentControl = UISegmentedControl(items: ["ENG", "UA"])
+    private var selectedLanguageIndex = 0
     
     //MARK: settingsLabelStackView
-    let settingsLabelStackView = UIStackView()
-    let temperatureUnitLabel = UILabel()
-    let windSpeedUnitLabel = UILabel()
-    let atmosphericPressureUnitLabel = UILabel()
+    private let settingsLabelStackView = UIStackView()
+    private let temperatureUnitLabel = UILabel()
+    private let windSpeedUnitLabel = UILabel()
+    private let atmosphericPressureUnitLabel = UILabel()
     
     //MARK: settingsSegmentControlStackView
-    let settingsSegmentControlStackView = UIStackView()
-    let temperatureUnitSegmentControl = UISegmentedControl(items: ["C°", "°F"])
-    let windSpeedUnitSegmentControl = UISegmentedControl(items: ["km/h", "mil/h"])
-    let atmosphericPressureUnitSegmentControl = UISegmentedControl(items: ["mbar", "atm"])
+    private let settingsSegmentControlStackView = UIStackView()
+    private let temperatureUnitSegmentControl = UISegmentedControl(items: ["C°", "°F"])
+    private let windSpeedUnitSegmentControl = UISegmentedControl(items: ["km/h", "mil/h"])
+    private let atmosphericPressureUnitSegmentControl = UISegmentedControl(items: ["mbar", "atm"])
 
-    let separator = UIView()
+    private let separator = UIView()
     
     //MARK: - viewDidLoad
     
@@ -54,6 +54,10 @@ final class SettingsViewController: UIViewController {
         setupLayouts()
     }
     
+    //MARK: - Functions setupViews and setupLayouts
+
+    //MARK: setupViews
+
     private func setupViews() {
         
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -139,6 +143,8 @@ final class SettingsViewController: UIViewController {
         
     }
     
+    //MARK: - setupLayouts
+
     private func setupLayouts() {
         view.addSubview(backgroundView)
         
@@ -150,15 +156,17 @@ final class SettingsViewController: UIViewController {
         backgroundView.addSubview(unitLabel)
         backgroundView.addSubview(extraLabel)
         
-        //MARK: Language
+        //MARK: Language layout
         backgroundView.addSubview(languageLabel)
         backgroundView.addSubview(languageSegmentControl)
         
+        //MARK: settingsLabelStackView layout
         backgroundView.addSubview(settingsLabelStackView)
         settingsLabelStackView.addArrangedSubview(temperatureUnitLabel)
         settingsLabelStackView.addArrangedSubview(atmosphericPressureUnitLabel)
         settingsLabelStackView.addArrangedSubview(windSpeedUnitLabel)
         
+        //MARK: settingsSegmentControlStackView layout
         backgroundView.addSubview(settingsSegmentControlStackView)
         settingsSegmentControlStackView.addArrangedSubview(temperatureUnitSegmentControl)
         settingsSegmentControlStackView.addArrangedSubview(atmosphericPressureUnitSegmentControl)
@@ -234,23 +242,31 @@ final class SettingsViewController: UIViewController {
         
     }
     
+    //MARK: - Enother func
+    
     private func setAppLanguage(languageCode: String) {
         UserDefaults.standard.set(languageCode, forKey: "AppLanguage")
         UserDefaults.standard.synchronize()
         
-//        restartApp()
+        showInfoAboutChangeLanguage()
+        
     }
     
-//    private func restartApp() {
-//        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-//            if let window = windowScene.windows.first {
-//                let viewController = MainViewController() // Здесь вы должны создать экземпляр вашего корневого контроллера (родительского контроллера) программно
-//                window.rootViewController = viewController
-//            }
-//        }
-//    }
+    private func showInfoAboutChangeLanguage() {
+        let alert = UIAlertController(title: "Done!".localized(),
+                                      message: "When restarting the application - the language will be changed".localized(),
+                                      preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+        }
+        
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
     
     
+    //MARK: - Objc func/target func
     
     @objc func backToMainView() {
         
@@ -283,7 +299,6 @@ final class SettingsViewController: UIViewController {
         }
         
     }
-    
     
     
 }

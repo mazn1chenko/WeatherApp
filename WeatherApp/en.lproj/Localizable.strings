@@ -5,6 +5,9 @@
   Created by m223 on 07.10.2023.
   
 */
+"Виконано!" = "Done!";
+"Перевірте правильність даних або зараз регіон недоступний" = "Check correct data or now region not available";
+"При перезапуску програми - мова буде змінена" = "When restarting the application - the language will be changed";
 "Місцезнаходження" = "Manage location";
 "Знайдіть Своє Місто" = "Search Your City";
 "Одиниці вимірювання" = "UNIT";
@@ -20,6 +23,9 @@
 "Налаштування" = "Settings";
 "Мова" = "Language";
 "Вітер" = "Wind";
+"км/год" = "km/h";
+"мбар" = "mbar";
+
 
 "Понеділок" = "Monday";
 "Вівторок" = "Tuesday";

@@ -7,17 +7,17 @@
 
 import UIKit
 
-class ForecastWeatherCollectionViewCell: UICollectionViewCell {
+final class ForecastWeatherCollectionViewCell: UICollectionViewCell {
     
     static let cellId = "ForecastWeatherCollectionViewCell"
     
-    let timeOfWeatherLabel = UILabel()
+    private let timeOfWeatherLabel = UILabel()
     
-    let stateOfWeatherImageView = UIImageView()
+    private let stateOfWeatherImageView = UIImageView()
     
-    let temperatureOfWeatherLabel = UILabel()
+    private let temperatureOfWeatherLabel = UILabel()
     
-    let chanceOfRainLabel = UILabel()
+    private let chanceOfRainLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,9 +30,9 @@ class ForecastWeatherCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+        
     //MARK: - Functions setupViews and setupLayouts
-    
+
     //MARK: setupViews
 
     private func setupViews() {
@@ -83,14 +83,12 @@ class ForecastWeatherCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    //MARK: - configurateCell
+    //MARK: - Configure cell
 
     func configureCell(index: Hour) {
         
         temperatureOfWeatherLabel.text = "\(Int(NSDecimalNumber(decimal: index.tempC ?? -0).doubleValue))°"
-        
-//        "\(Int(NSDecimalNumber(decimal: model.current?.tempC ?? -0).doubleValue))"
-                
+                        
         timeOfWeatherLabel.formatterDateHHmm(timeEpoch: index.timeEpoch)
         
         

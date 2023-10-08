@@ -29,7 +29,10 @@ final class ManageLocationViewController: UIViewController {
         
     }
     
-    
+    //MARK: - Functions setupViews and setupLayouts
+
+    //MARK: setupViews
+
     private func setupViews() {
         
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,6 +59,7 @@ final class ManageLocationViewController: UIViewController {
 
 
     }
+    //MARK: - setupLayouts
     
     private func setupLayouts() {
         view.addSubview(backgroundView)
@@ -93,7 +97,12 @@ final class ManageLocationViewController: UIViewController {
     
     @objc func backToMainView() {
         
-
+        navigationToMainView()
+        
+    }
+    
+    func navigationToMainView() {
+        
         let transition = CATransition()
         transition.duration = 0.2
         transition.type = .push
@@ -101,7 +110,6 @@ final class ManageLocationViewController: UIViewController {
 
         navigationController?.view.layer.add(transition, forKey: kCATransition)
         navigationController?.popViewController(animated: false)
-
     }
     
     func showAlert(title: String, message: String) {
@@ -122,11 +130,10 @@ extension ManageLocationViewController: UISearchBarDelegate {
             NetworkManager.shared.checkAPIStatus(apiKeyword: searchText) { result in
                 switch result {
                 case .success(1):
-                    print("good")
-                    self.showAlert(title: "Accept", message: "Check your main screen with updated location")
+                    self.navigationToMainView()
                 default:
-                    print("bad")
-                    self.showAlert(title: "Error", message: "Check correct data or now region not available")
+
+                    self.showAlert(title: "Error", message: "Check correct data or now region not available".localized())
                 }
             }
         }

@@ -7,43 +7,43 @@
 
 import UIKit
 
-class CurrentWeatherCollectionViewCell: UICollectionViewCell {
+final class CurrentWeatherCollectionViewCell: UICollectionViewCell {
     
     static let cellId = "MainCellId"
     
     //MARK: Label
-    let locationNameLabel = UILabel()
-    let currentlyDateLabel = UILabel()
-    let currentTempLabel = UILabel()
-    let stateOfWeatherTextLabel = UILabel()
+    private let locationNameLabel = UILabel()
+    private let currentlyDateLabel = UILabel()
+    private let currentTempLabel = UILabel()
+    private let stateOfWeatherTextLabel = UILabel()
     
     //MARK: ImageView
     let stateOfWeatherImage = UIImageView()
     
     //MARK: DetailsOfCurrentWeatherStackView
-    let detailsOfCurrentWeatherStackView = UIStackView()
-    let speedAndPressureStackView = UIStackView()
-    let chanceOfRainAndHudimityStackView = UIStackView()
+    private let detailsOfCurrentWeatherStackView = UIStackView()
+    private let speedAndPressureStackView = UIStackView()
+    private let chanceOfRainAndHudimityStackView = UIStackView()
     
     //MARK: WindSpeedStackView
-    let windSpeedStackView =  UIStackView()
-    let windSpeedImage = UIImageView()
-    let windSpeedLabel = UILabel()
+    private let windSpeedStackView =  UIStackView()
+    private let windSpeedImage = UIImageView()
+    private let windSpeedLabel = UILabel()
     
     //MARK: PressureOfAirStackView
-    let pressureOfAirStackView = UIStackView()
-    let pressureImageView = UIImageView()
-    let pressureTextLabel = UILabel()
+    private let pressureOfAirStackView = UIStackView()
+    private let pressureImageView = UIImageView()
+    private let pressureTextLabel = UILabel()
     
     //MARK: ChanceOfRainStackView
-    let cloudyStackView = UIStackView()
-    let cloudyImageView = UIImageView()
-    let cloudyLabel = UILabel()
+    private let cloudyStackView = UIStackView()
+    private let cloudyImageView = UIImageView()
+    private let cloudyLabel = UILabel()
     
     //MARK: HudimityStackView
-    let hudimityStackView = UIStackView()
-    let hudimitiImageView = UIImageView()
-    let hudimityTextLabel = UILabel()
+    private let hudimityStackView = UIStackView()
+    private let hudimitiImageView = UIImageView()
+    private let hudimityTextLabel = UILabel()
     
     
     //MARK: Button
@@ -51,7 +51,7 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
     let managerLocationButton = UIButton(type: .system)
     
     //MARK: Separator
-    let separator = UIView()
+    private let separator = UIView()
     
     
     override init(frame: CGRect) {
@@ -271,6 +271,8 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         
     }
     
+    //MARK: makingViewBackgroundGradient
+    
     private func makingViewBackgroundGradient() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = bounds
@@ -284,12 +286,10 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         
         layer.addSublayer(gradientLayer)
     }
+        
     
-    //MARK: Target functions
-    
-    
-    //MARK: - configurateCell
-    
+    //MARK: - Configure cell
+
     func configurateCell(model: CurrentWeatherModel) {
         
         locationNameLabel.text = model.location?.name
@@ -300,9 +300,9 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         
         hudimityTextLabel.text = "\(model.current?.humidity ?? 000)% \n\("Hudimity".localized()) \(model.current?.humidity ?? 000)%"
         
-        windSpeedLabel.text = "\(model.current?.windKph ?? 000) km/h \n\("Wind".localized())"
+        windSpeedLabel.text = "\(model.current?.windKph ?? 000) \(("km/h").localized()) \n\("Wind".localized())"
         
-        pressureTextLabel.text = "\(model.current?.pressureMB ?? 000) mbar \n\("Pressure".localized())"
+        pressureTextLabel.text = "\(model.current?.pressureMB ?? 000) \(("mbar").localized()) \n\("Pressure".localized())"
         
         cloudyLabel.text = "\(model.current?.cloud ?? 000)% \n\("Cloudy".localized()) \(model.current?.cloud ?? 000)%"
         

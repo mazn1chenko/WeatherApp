@@ -23,8 +23,12 @@ class ForecastWeatherFor7DaysViewController: UIViewController {
         
         setupViews()
         setupLayouts()
-        network()
+        fetchData()
     }
+    
+    //MARK: - Functions setupViews and setupLayouts
+
+    //MARK: setupViews
     
     private func setupViews() {
         
@@ -39,6 +43,8 @@ class ForecastWeatherFor7DaysViewController: UIViewController {
         headerLabel.font = UIFont(name: "Poppins-Medium", size: 18)
         
     }
+    
+    //MARK: setupLayouts
     
     private func setupLayouts() {
         view.addSubview(forecastWeatherFor7DaysTableView)
@@ -56,9 +62,11 @@ class ForecastWeatherFor7DaysViewController: UIViewController {
         ])
         
     }
-    //MARK: Network
+
     
-    func network() {
+    //MARK: - Network
+    
+    private func fetchData() {
         
         
         NetworkManager.shared.fetchForcatsWeatherFor7Days { ForecastWeather in

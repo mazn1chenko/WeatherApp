@@ -238,8 +238,17 @@ final class SettingsViewController: UIViewController {
         UserDefaults.standard.set(languageCode, forKey: "AppLanguage")
         UserDefaults.standard.synchronize()
         
-        exit(0)
+//        restartApp()
     }
+    
+//    private func restartApp() {
+//        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+//            if let window = windowScene.windows.first {
+//                let viewController = MainViewController() // Здесь вы должны создать экземпляр вашего корневого контроллера (родительского контроллера) программно
+//                window.rootViewController = viewController
+//            }
+//        }
+//    }
     
     
     

@@ -81,7 +81,9 @@ class ForecastWeatherFor7DaysTableViewCell: UITableViewCell {
         
         stateOfWeatherImage.setWeatherIcon(withCode: model.day?.condition?.code, isDay: 1)
         
-        minMaxTemperatureLabel.text = "\(model.day?.mintempC ?? -0)°/\(model.day?.maxtempC ?? -0)°"
+        minMaxTemperatureLabel.text =
+        "\(Int(truncating: NSDecimalNumber(decimal: model.day?.mintempC ?? -0)))°/\(Int(truncating:NSDecimalNumber(decimal: model.day?.maxtempC ?? -0)))°"
+        
         
     }
 }

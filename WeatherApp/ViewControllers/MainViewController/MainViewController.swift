@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Reachability
 
 final class MainViewController: UIViewController {
     
@@ -47,6 +48,7 @@ final class MainViewController: UIViewController {
         
     var timeForForecastWeather2DaysArray = [Hour]()
     
+    
     //MARK: - ViewDidLoad
     
     override func viewDidLoad() {
@@ -56,8 +58,8 @@ final class MainViewController: UIViewController {
         
         setupViews()
         setupLayouts()
-        gettingDataForCurrentWeather()
-        gettingDataForForecastWeatherForDay()
+        
+        getApiUser()
     }
     
     
@@ -144,52 +146,6 @@ final class MainViewController: UIViewController {
         
     }
     
-    //MARK: - Network
-    
-    func gettingDataForCurrentWeather() {
-        
-        self.currentWeatherArray.removeAll()
-        
-        NetworkManager.shared.fetchCurrentWeather { CurrentWeather in
-            self.currentWeatherArray.append(CurrentWeather)
-            
-            DispatchQueue.main.async {
-                self.currentWeatherCollectionView.reloadData()
-            }
-        }
-    }
-    
-    func gettingDataForForecastWeatherForDay() {
-        
-        self.timeForForecastWeather2DaysArray.removeAll()
-        
-        NetworkManager.shared.fetchForcatsWeatherFor2Days { Forecastweather in
-            
-            var todayTime = Forecastweather.forecast?.forecastday?[0].hour ?? []
-            
-            let currentEpochTime = Int(Date().timeIntervalSince1970)
-            
-            todayTime = todayTime.filter { model in
-                if let timeEpoch = model.timeEpoch {
-                    return timeEpoch >= currentEpochTime
-                }
-                return false
-            }
-            
-            todayTime += Forecastweather.forecast?.forecastday?[1].hour ?? []
-            
-            self.timeForForecastWeather2DaysArray = todayTime
-            
-            DispatchQueue.main.async {
-                
-                self.forecastWeatherCollectionView.reloadData()
-                
-            }
-        }
-    
-    }
-    
-    
     //MARK: Objc func for targer/button
     
     @objc func openSettingsView() {
@@ -216,8 +172,12 @@ final class MainViewController: UIViewController {
         
     }
     
+    
+    //MARK: - viewWillAppear
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         
         gettingDataForCurrentWeather()
         gettingDataForForecastWeatherForDay()
@@ -235,6 +195,7 @@ final class MainViewController: UIViewController {
 //MARK: - UICollectionViewDataSource
 
 extension MainViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == currentWeatherCollectionView {
             return currentWeatherArray.count
@@ -286,6 +247,163 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
 extension MainViewController: UICollectionViewDelegate {
     
+    
+}
+
+//MARK: - MainViewController Network
+
+extension MainViewController {
+    
+    //MARK: Getting data with connection to internet
+    private func gettingDataForCurrentWeather() {
+        NetworkManager.shared.fetchCurrentWeather { [weak self] CurrentWeather in
+            guard let self = self else { return }
+
+            self.currentWeatherArray.removeAll()
+            self.currentWeatherArray.append(CurrentWeather)
+
+            // Сериализовать массив и сохранить его в UserDefaults
+            if let encodedData = try? JSONEncoder().encode(self.currentWeatherArray) {
+                UserDefaults.standard.removeObject(forKey: "LastSessionCurrentWeather")
+                UserDefaults.standard.set(encodedData, forKey: "LastSessionCurrentWeather")
+                UserDefaults.standard.synchronize() // Убедитесь, что данные сохранены немедленно
+            } else {
+                print("Cannot load data into UserDefaults")
+            }
+
+            DispatchQueue.main.async {
+                self.currentWeatherCollectionView.reloadData()
+            }
+        }
+    }
+    
+    private func gettingDataForForecastWeatherForDay() {
+        
+        self.timeForForecastWeather2DaysArray.removeAll()
+        
+        NetworkManager.shared.fetchForcatsWeatherFor2Days { Forecastweather in
+            
+            var todayTime = Forecastweather.forecast?.forecastday?[0].hour ?? []
+            
+            let currentEpochTime = Int(Date().timeIntervalSince1970)
+            
+            todayTime = todayTime.filter { model in
+                if let timeEpoch = model.timeEpoch {
+                    return timeEpoch >= currentEpochTime
+                }
+                return false
+            }
+            
+            todayTime += Forecastweather.forecast?.forecastday?[1].hour ?? []
+            
+            self.timeForForecastWeather2DaysArray = todayTime
+            
+            
+            
+            DispatchQueue.main.async {
+                
+                self.forecastWeatherCollectionView.reloadData()
+                if let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: self.timeForForecastWeather2DaysArray, requiringSecureCoding: false) {
+                    UserDefaults.standard.removeObject(forKey: "LastSesionDataForForecastWeatherForDay")
+                    UserDefaults.standard.set(encodedData, forKey: "LastSesionDataForForecastWeatherForDay")
+                }
+
+            }
+        }
+    
+    }
+    
+    
+    //MARK: Last Session Data
+    private func gettingLastSesionDataForCurrentWeather() {
+        
+            self.currentWeatherArray.removeAll()
+        if let savedData = UserDefaults.standard.data(forKey: "LastSessionCurrentWeather"),
+           let currentWeatherArray = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? [CurrentWeatherModel] {
+            
+            self.currentWeatherArray = currentWeatherArray
+            
+            self.currentWeatherCollectionView.reloadData()
+            
+        } else {
+
+            print("gg in gettingLastSesionDataForCurrentWeather")
+        }
+            
+        
+    }
+    
+    private func gettingLastSesionDataForForecastWeatherForDay() {
+        
+            self.timeForForecastWeather2DaysArray.removeAll()
+        if let savedData = UserDefaults.standard.data(forKey: "LastSesionDataForForecastWeatherForDay"),
+           let timeForForecastWeather2DaysArray = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedData) as? [Hour] {
+            
+            self.timeForForecastWeather2DaysArray = timeForForecastWeather2DaysArray
+            self.forecastWeatherCollectionView.reloadData()
+            
+        } else {
+
+            print("gg in gettingLastSesionDataForForecastWeatherForDay")
+        }
+            
+        
+    }
+    
+    func getApiUser() {
+        
+        NetworkManager.shared.getIPAddress { Location in
+            
+            if !self.checkInternetConnection() {
+                self.showNoInternetAlert()
+                self.gettingLastSesionDataForCurrentWeather()
+                self.gettingLastSesionDataForForecastWeatherForDay()
+                
+            }else {
+
+                self.gettingDataForCurrentWeather()
+                self.gettingDataForForecastWeatherForDay()
+                
+            }
+        }
+        
+    }
+    
+    private func checkInternetConnection() -> Bool {
+        do {
+
+            let reachability = try Reachability()
+
+            try reachability.startNotifier()
+
+
+            let currentStatus = reachability.connection
+            switch currentStatus {
+            case .wifi, .cellular:
+                return true
+            case .unavailable:
+                return false
+            }
+        } catch {
+            print("Error initializing Reachability: \(error)")
+        }
+
+        return false
+    }
+
+    private func showNoInternetAlert() {
+        let alert = UIAlertController(title: "No Internet Connection",
+                                      message: "Please check your internet connection and try again.",
+                                      preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+        }
+        
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+
     
 }
 

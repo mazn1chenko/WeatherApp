@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-class NetworkManager {
+final class NetworkManager {
     
     static let shared = NetworkManager()
     
@@ -35,7 +35,6 @@ class NetworkManager {
         let end = "&q="
         let daysAndLang = "&lang=uk"
         let url = tunnel + server + endpoint + key + end + location + daysAndLang
-       // print(url)
         return url
     }
     
@@ -48,7 +47,6 @@ class NetworkManager {
         let end = "&q="
         let daysAndLang = "&days=2&lang=uk"
         let url = tunnel + server + endpoint + key + end + location + daysAndLang
-        //print(url)
         return url
     }
     
@@ -63,7 +61,6 @@ class NetworkManager {
         let end = "&q="
         let daysAndLang = "&days=7&lang=uk"
         let url = tunnel + server + endpoint + key + end + location + daysAndLang
-        //print(url)
         return url
     }
     
@@ -77,6 +74,8 @@ class NetworkManager {
                 case .success:
                     completion(.success(1))
                     self.location = apiKeyword
+                    UserDefaults.standard.set(apiKeyword, forKey: "Location")
+                
                 case .failure(let error):
                     completion(.failure(error))
                     self.location = "London"
@@ -91,6 +90,7 @@ class NetworkManager {
                 switch responce.result {
                 case .success(let data):
                     do {
+
                         let jsonData = try JSONDecoder().decode(CurrentWeatherModel.self, from: data!)
                         completion(jsonData)
                     }catch {
@@ -135,6 +135,7 @@ class NetworkManager {
                 case .success(let data):
                     do {
                         let jsonData = try JSONDecoder().decode(ForecastWeatherModel.self, from: data!)
+
                         completion(jsonData)
 
                     }catch {
@@ -149,6 +150,37 @@ class NetworkManager {
             }
 
     }
+    
+    func getIPAddress(completion: @escaping (Result<String, Error>) -> Void) {
+        let apiUrl = "https://api64.ipify.org?format=json"
+        
+        AF.request(apiUrl, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil, interceptor: nil)
+            .response { response in
+                switch response.result {
+                case .success(let data):
+                    if let jsonData = data {
+                        do {
+                            if let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any], let ipAddress = json["ip"] as? String {
+                                self.location = ipAddress
+
+                                print("working API")
+
+                                completion(.success(ipAddress))
+                            } else {
+                                completion(.failure(NSError(domain: "ParsingError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse IP address from JSON"])))
+                            }
+                        } catch {
+                            self.location = "London"
+                            print("Not working API")
+                            completion(.failure(error))
+                        }
+                    } else {
+                        completion(.failure(NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Data is nil"])))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+
 }
-
-

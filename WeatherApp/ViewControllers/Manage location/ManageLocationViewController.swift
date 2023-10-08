@@ -13,9 +13,7 @@ final class ManageLocationViewController: UIViewController {
     let backgroundView = UIView()
     
     let titleLabel = UILabel()
-    
-//    let searchLocationSearchBarController = UISearchController()
-    
+        
     let searchLocationBar = UISearchBar()
     
     let customBackButton = UIButton(type: .system)
@@ -25,7 +23,6 @@ final class ManageLocationViewController: UIViewController {
         
         view.backgroundColor = .white
         navigationItem.hidesBackButton = true
-//        navigationItem.searchController = searchLocationSearchBarController
 
         setupViews()
         setupLayouts()

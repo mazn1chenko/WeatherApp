@@ -21,6 +21,8 @@
 		714B59862ACEDC6F00E5DDF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 714B59842ACEDC6F00E5DDF3 /* LaunchScreen.storyboard */; };
 		714B59902ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714B598F2ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift */; };
 		714B59962ACEFC8800E5DDF3 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 714B59952ACEFC8800E5DDF3 /* Poppins-Regular.ttf */; };
+		719017512AD2E14C00B0665E /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 719017502AD2E14C00B0665E /* Reachability */; };
+		719017542AD2EBE200B0665E /* DataWeatherLastSessionClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719017532AD2EBE200B0665E /* DataWeatherLastSessionClass.swift */; };
 		71A818162AD0654900D0BFFC /* EnumForStateOfWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A818152AD0654900D0BFFC /* EnumForStateOfWeather.swift */; };
 		71A818192AD073ED00D0BFFC /* StateOfImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A818182AD073ED00D0BFFC /* StateOfImage.swift */; };
 		71A8181D2AD0773C00D0BFFC /* FormatterDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A8181C2AD0773C00D0BFFC /* FormatterDate.swift */; };
@@ -63,6 +65,7 @@
 		714B59872ACEDC6F00E5DDF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		714B598F2ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 		714B59952ACEFC8800E5DDF3 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		719017532AD2EBE200B0665E /* DataWeatherLastSessionClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataWeatherLastSessionClass.swift; sourceTree = "<group>"; };
 		71A818152AD0654900D0BFFC /* EnumForStateOfWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumForStateOfWeather.swift; sourceTree = "<group>"; };
 		71A818182AD073ED00D0BFFC /* StateOfImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateOfImage.swift; sourceTree = "<group>"; };
 		71A8181C2AD0773C00D0BFFC /* FormatterDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatterDate.swift; sourceTree = "<group>"; };
@@ -83,6 +86,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				712FA1C92ACF2F6300901888 /* Alamofire in Frameworks */,
+				719017512AD2E14C00B0665E /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +134,7 @@
 				71A818172AD073C600D0BFFC /* Extension */,
 				712FA1C12ACF2D7200901888 /* Model */,
 				712FA1C42ACF2DA600901888 /* NetworkManager */,
+				719017522AD2EBB700B0665E /* DataWeatherLastSession */,
 				714B598D2ACEDD5100E5DDF3 /* SupportingFiles */,
 				71A8181E2AD07D2900D0BFFC /* ViewControllers */,
 				71C607882AD1B8D000B938A9 /* Localizable.strings */,
@@ -165,6 +170,14 @@
 				712FA1BF2ACF239A00901888 /* Poppins-Medium.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		719017522AD2EBB700B0665E /* DataWeatherLastSession */ = {
+			isa = PBXGroup;
+			children = (
+				719017532AD2EBE200B0665E /* DataWeatherLastSessionClass.swift */,
+			);
+			path = DataWeatherLastSession;
 			sourceTree = "<group>";
 		};
 		71A818142AD0652800D0BFFC /* EnumForStateOfWeather */ = {
@@ -283,6 +296,7 @@
 			name = WeatherApp;
 			packageProductDependencies = (
 				712FA1C82ACF2F6300901888 /* Alamofire */,
+				719017502AD2E14C00B0665E /* Reachability */,
 			);
 			productName = WeatherApp;
 			productReference = 714B59762ACEDC6C00E5DDF3 /* WeatherApp.app */;
@@ -315,6 +329,7 @@
 			mainGroup = 714B596D2ACEDC6C00E5DDF3;
 			packageReferences = (
 				712FA1C72ACF2F6300901888 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				7190174F2AD2E14B00B0665E /* XCRemoteSwiftPackageReference "Reachability.swift" */,
 			);
 			productRefGroup = 714B59772ACEDC6C00E5DDF3 /* Products */;
 			projectDirPath = "";
@@ -356,6 +371,7 @@
 				712FA1C62ACF2DB900901888 /* NetworkManager.swift in Sources */,
 				71A818162AD0654900D0BFFC /* EnumForStateOfWeather.swift in Sources */,
 				714B597A2ACEDC6C00E5DDF3 /* AppDelegate.swift in Sources */,
+				719017542AD2EBE200B0665E /* DataWeatherLastSessionClass.swift in Sources */,
 				712FA1CB2ACF4C2E00901888 /* ForecastWeatherModel.swift in Sources */,
 				71C6077C2AD16C4600B938A9 /* ForecastWeatherFor7DaysTableViewCell.swift in Sources */,
 				714B597C2ACEDC6C00E5DDF3 /* SceneDelegate.swift in Sources */,
@@ -594,6 +610,14 @@
 				kind = branch;
 			};
 		};
+		7190174F2AD2E14B00B0665E /* XCRemoteSwiftPackageReference "Reachability.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -601,6 +625,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 712FA1C72ACF2F6300901888 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		719017502AD2E14C00B0665E /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7190174F2AD2E14B00B0665E /* XCRemoteSwiftPackageReference "Reachability.swift" */;
+			productName = Reachability;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -21,6 +21,7 @@
 		714B59862ACEDC6F00E5DDF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 714B59842ACEDC6F00E5DDF3 /* LaunchScreen.storyboard */; };
 		714B59902ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714B598F2ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift */; };
 		714B59962ACEFC8800E5DDF3 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 714B59952ACEFC8800E5DDF3 /* Poppins-Regular.ttf */; };
+		718688062AD46662004DC611 /* CurrentLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718688052AD46662004DC611 /* CurrentLocationCollectionViewCell.swift */; };
 		719017512AD2E14C00B0665E /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 719017502AD2E14C00B0665E /* Reachability */; };
 		71A818162AD0654900D0BFFC /* EnumForStateOfWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A818152AD0654900D0BFFC /* EnumForStateOfWeather.swift */; };
 		71A818192AD073ED00D0BFFC /* StateOfImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A818182AD073ED00D0BFFC /* StateOfImage.swift */; };
@@ -64,6 +65,7 @@
 		714B59872ACEDC6F00E5DDF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		714B598F2ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 		714B59952ACEFC8800E5DDF3 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		718688052AD46662004DC611 /* CurrentLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		71A818152AD0654900D0BFFC /* EnumForStateOfWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumForStateOfWeather.swift; sourceTree = "<group>"; };
 		71A818182AD073ED00D0BFFC /* StateOfImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateOfImage.swift; sourceTree = "<group>"; };
 		71A8181C2AD0773C00D0BFFC /* FormatterDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatterDate.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				71C6077E2AD1AA1600B938A9 /* ManageLocationViewController.swift */,
+				718688052AD46662004DC611 /* CurrentLocationCollectionViewCell.swift */,
 			);
 			path = "Manage location";
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				714B597C2ACEDC6C00E5DDF3 /* SceneDelegate.swift in Sources */,
 				714B59902ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift in Sources */,
 				71C607822AD1B79A00B938A9 /* String.swift in Sources */,
+				718688062AD46662004DC611 /* CurrentLocationCollectionViewCell.swift in Sources */,
 				71C607772AD1699800B938A9 /* ForecastWeather7DaysViewControllers.swift in Sources */,
 				71A818202AD07D4F00D0BFFC /* SettingsViewController.swift in Sources */,
 			);

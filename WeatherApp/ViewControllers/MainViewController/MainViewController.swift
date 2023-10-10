@@ -50,7 +50,7 @@ final class MainViewController: UIViewController {
     
     
     //MARK: - ViewDidLoad
-    
+      
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,10 +60,13 @@ final class MainViewController: UIViewController {
         setupLayouts()
         
         getApiUser()
+        
+        
     }
     
     
     //MARK: - Functions setupViews and setupLayouts
+    
     
     //MARK: setupViews
 
@@ -102,6 +105,7 @@ final class MainViewController: UIViewController {
         
         
     }
+    
     
     //MARK: setupLayouts
 

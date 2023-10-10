@@ -10,14 +10,29 @@ import UIKit
 
 final class ManageLocationViewController: UIViewController {
     
-    let backgroundView = UIView()
+    private let backgroundView = UIView()
     
-    let titleLabel = UILabel()
+    private let recentlySearchLocationCollectionView: UICollectionView = {
         
-    let searchLocationBar = UISearchBar()
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .vertical
+            layout.minimumInteritemSpacing = 0
+            layout.minimumLineSpacing = 20
+            
+            let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            collectionView.register(CurrentLocationCollectionViewCell.self, forCellWithReuseIdentifier: CurrentLocationCollectionViewCell.cellId)
+            return collectionView
+        
+    }()
     
-    let customBackButton = UIButton(type: .system)
+    private let titleLabel = UILabel()
+        
+    private let searchLocationBar = UISearchBar()
     
+    private let customBackButton = UIButton(type: .system)
+    
+    var recentLocationArray = [CurrentWeatherModel]()
+                
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,7 +41,8 @@ final class ManageLocationViewController: UIViewController {
 
         setupViews()
         setupLayouts()
-        
+        fetchCurrentLocationWeather()
+                
     }
     
     //MARK: - Functions setupViews and setupLayouts
@@ -41,14 +57,13 @@ final class ManageLocationViewController: UIViewController {
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "Manage location".localized()
-        titleLabel.font = UIFont(name: "Puppies-SemiBold", size: 24)
+        titleLabel.font = UIFont(name: "Poppins-SemiBold", size: 24)
         
         customBackButton.translatesAutoresizingMaskIntoConstraints = false
         customBackButton.setImage(UIImage(named: "bi_arrow-left-short"), for: .normal)
         customBackButton.tintColor = .white
         customBackButton.addTarget(self, action: #selector(backToMainView), for: .touchUpInside)
         
-//        searchLocationSearchBarController.view = searchLocationBar
         searchLocationBar.translatesAutoresizingMaskIntoConstraints = false
         searchLocationBar.placeholder = "Search Your City".localized()
         searchLocationBar.delegate = self
@@ -56,7 +71,10 @@ final class ManageLocationViewController: UIViewController {
         searchLocationBar.layer.cornerRadius = 20
         searchLocationBar.searchBarStyle = .minimal
         
-
+        recentlySearchLocationCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        recentlySearchLocationCollectionView.delegate = self
+        recentlySearchLocationCollectionView.dataSource = self
+        recentlySearchLocationCollectionView.backgroundColor = .backgroundOfView
 
     }
     //MARK: - setupLayouts
@@ -66,6 +84,7 @@ final class ManageLocationViewController: UIViewController {
         backgroundView.addSubview(customBackButton)
         backgroundView.addSubview(searchLocationBar)
         backgroundView.addSubview(titleLabel)
+        backgroundView.addSubview(recentlySearchLocationCollectionView)
         
         let baseOffseats: CGFloat = 20
         
@@ -89,9 +108,29 @@ final class ManageLocationViewController: UIViewController {
             searchLocationBar.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             searchLocationBar.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: baseOffseats),
             searchLocationBar.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -baseOffseats),
+            
+            //MARK: recentlySearchLocationCollectionView
+            recentlySearchLocationCollectionView.topAnchor.constraint(equalTo: searchLocationBar.bottomAnchor, constant: baseOffseats),
+            recentlySearchLocationCollectionView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: baseOffseats),
+            recentlySearchLocationCollectionView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -baseOffseats),
+            recentlySearchLocationCollectionView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -baseOffseats)
 
         ])
         
+    }
+    
+    
+    //MARK: - Network
+    
+    func fetchCurrentLocationWeather() {
+        
+        NetworkManager.shared.fetchCurrentWeather { CurrentWeatherModel in
+            self.recentLocationArray.append(CurrentWeatherModel)
+            
+            DispatchQueue.main.async {
+                self.recentlySearchLocationCollectionView.reloadData()
+            }
+        }
     }
     
     
@@ -112,6 +151,7 @@ final class ManageLocationViewController: UIViewController {
         navigationController?.popViewController(animated: false)
     }
     
+    //MARK: Alert
     func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -119,14 +159,64 @@ final class ManageLocationViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        recentlySearchLocationCollectionView.reloadData()
+        //?
+    }
+    
 }
+
+
+
+//MARK: - UICollectionViewDelegate
+
+extension ManageLocationViewController: UICollectionViewDelegate {
+    
+    
+}
+
+//MARK: - UICollectionViewDelegate
+
+extension ManageLocationViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return recentLocationArray.count
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CurrentLocationCollectionViewCell.cellId, for: indexPath) as? CurrentLocationCollectionViewCell
+        cell?.layer.cornerRadius = 20
+        if indexPath.row == 0 {
+            cell?.weatherOfCurrentLocationImageView.isHidden = false
+        }
+        cell?.configureCell(model: recentLocationArray[indexPath.row])
+        return cell!
+    }
+}
+
+//MARK: - UICollectionViewDelegateFlowLayout
+extension ManageLocationViewController: UICollectionViewDelegateFlowLayout {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        return CGSize(width: backgroundView.frame.width - 2*20, height: backgroundView.frame.height / 7) 
+    }
+
+}
+
+
+//MARK: - UISearchBarDelegate
 
 extension ManageLocationViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         if let searchText = searchBar.text, !searchText.isEmpty {
-            print(searchText)
             NetworkManager.shared.checkAPIStatus(apiKeyword: searchText) { result in
                 switch result {
                 case .success(1):

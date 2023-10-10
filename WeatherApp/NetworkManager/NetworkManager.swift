@@ -8,7 +8,8 @@
 import Foundation
 import Alamofire
 
-final class NetworkManager {
+
+class NetworkManager {
     
     static let shared = NetworkManager()
     
@@ -24,14 +25,16 @@ final class NetworkManager {
         let daysAndLang = "&lang=uk"
         
         let url = tunnel + server + endpoint + key + end + word + daysAndLang
+
         return url
+        
 
     }
     
     func checkAPIStatus(apiKeyword: String, completion: @escaping (Result<Int, Error>) -> Void) {
 
         let apiUrl = createUrlForChecking(apiKeyword)
-        
+                
         AF.request(apiUrl, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil, interceptor: nil)
             .response { response in
                 switch response.result {

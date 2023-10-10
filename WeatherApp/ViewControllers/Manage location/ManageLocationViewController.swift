@@ -65,11 +65,30 @@ final class ManageLocationViewController: UIViewController {
         customBackButton.addTarget(self, action: #selector(backToMainView), for: .touchUpInside)
         
         searchLocationBar.translatesAutoresizingMaskIntoConstraints = false
-        searchLocationBar.placeholder = "Search Your City".localized()
+        //searchLocationBar.placeholder = "Search Your City".localized()
         searchLocationBar.delegate = self
-        searchLocationBar.barTintColor = .backgroundOfView
+        searchLocationBar.tintColor = .black
+        
+        if let textFieldInsideSearchBar = searchLocationBar.value(forKey: "searchField") as? UITextField {
+            textFieldInsideSearchBar.attributedPlaceholder = NSAttributedString(
+                string: "Search Your City".localized(),
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+            )
+        }
+        
+        if let searchIcon = UIImage(systemName: "magnifyingglass") {
+            
+            let redSearchIcon = searchIcon.withTintColor(.black, renderingMode: .alwaysOriginal)
+            
+            searchLocationBar.setImage(redSearchIcon, for: .search, state: .normal)
+        }
+        
+        searchLocationBar.searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        
         searchLocationBar.layer.cornerRadius = 20
         searchLocationBar.searchBarStyle = .minimal
+        searchLocationBar.barTintColor = UIColor(red: 242, green: 242, blue: 242, alpha: 1.0)
+        searchLocationBar.searchTextField.backgroundColor = UIColor(red: 242, green: 242, blue: 242, alpha: 1.0)
         
         recentlySearchLocationCollectionView.translatesAutoresizingMaskIntoConstraints = false
         recentlySearchLocationCollectionView.delegate = self
@@ -104,13 +123,18 @@ final class ManageLocationViewController: UIViewController {
             customBackButton.heightAnchor.constraint(equalToConstant: 32),
             customBackButton.widthAnchor.constraint(equalToConstant: 32),
             
-            searchLocationBar.topAnchor.constraint(equalTo: customBackButton.bottomAnchor, constant: 15),
-            searchLocationBar.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            searchLocationBar.topAnchor.constraint(equalTo: customBackButton.bottomAnchor, constant: 30),
             searchLocationBar.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: baseOffseats),
             searchLocationBar.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -baseOffseats),
+            searchLocationBar.heightAnchor.constraint(equalToConstant: 44),
+            
+            searchLocationBar.searchTextField.topAnchor.constraint(equalTo: searchLocationBar.topAnchor),
+            searchLocationBar.searchTextField.leadingAnchor.constraint(equalTo: searchLocationBar.leadingAnchor),
+            searchLocationBar.searchTextField.trailingAnchor.constraint(equalTo: searchLocationBar.trailingAnchor),
+            searchLocationBar.searchTextField.bottomAnchor.constraint(equalTo: searchLocationBar.bottomAnchor),
             
             //MARK: recentlySearchLocationCollectionView
-            recentlySearchLocationCollectionView.topAnchor.constraint(equalTo: searchLocationBar.bottomAnchor, constant: baseOffseats),
+            recentlySearchLocationCollectionView.topAnchor.constraint(equalTo: searchLocationBar.bottomAnchor, constant: 1.5*baseOffseats),
             recentlySearchLocationCollectionView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: baseOffseats),
             recentlySearchLocationCollectionView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -baseOffseats),
             recentlySearchLocationCollectionView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -baseOffseats)
@@ -122,7 +146,7 @@ final class ManageLocationViewController: UIViewController {
     
     //MARK: - Network
     
-    func fetchCurrentLocationWeather() {
+    private func fetchCurrentLocationWeather() {
         
         NetworkManager.shared.fetchCurrentWeather { CurrentWeatherModel in
             self.recentLocationArray.append(CurrentWeatherModel)
@@ -133,14 +157,7 @@ final class ManageLocationViewController: UIViewController {
         }
     }
     
-    
-    @objc func backToMainView() {
-        
-        navigationToMainView()
-        
-    }
-    
-    func navigationToMainView() {
+    private func navigationToMainView() {
         
         let transition = CATransition()
         transition.duration = 0.2
@@ -152,7 +169,7 @@ final class ManageLocationViewController: UIViewController {
     }
     
     //MARK: Alert
-    func showAlert(title: String, message: String) {
+    private func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
@@ -164,6 +181,14 @@ final class ManageLocationViewController: UIViewController {
         
         recentlySearchLocationCollectionView.reloadData()
         //?
+    }
+    
+    //MARK: Objc func
+    
+    @objc func backToMainView() {
+        
+        navigationToMainView()
+        
     }
     
 }

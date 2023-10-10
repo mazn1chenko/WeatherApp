@@ -65,7 +65,6 @@ final class ManageLocationViewController: UIViewController {
         customBackButton.addTarget(self, action: #selector(backToMainView), for: .touchUpInside)
         
         searchLocationBar.translatesAutoresizingMaskIntoConstraints = false
-        //searchLocationBar.placeholder = "Search Your City".localized()
         searchLocationBar.delegate = self
         searchLocationBar.tintColor = .black
         
@@ -84,6 +83,7 @@ final class ManageLocationViewController: UIViewController {
         }
         
         searchLocationBar.searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        searchLocationBar.searchTextField.textColor = .black
         
         searchLocationBar.layer.cornerRadius = 20
         searchLocationBar.searchBarStyle = .minimal
@@ -149,12 +149,46 @@ final class ManageLocationViewController: UIViewController {
     private func fetchCurrentLocationWeather() {
         
         NetworkManager.shared.fetchCurrentWeather { CurrentWeatherModel in
-            self.recentLocationArray.append(CurrentWeatherModel)
+            DispatchQueue.main.async {
+                self.recentlySearchLocationCollectionView.reloadData()
+            }
+            
+            if self.recentLocationArray.isEmpty {
+
+                self.recentLocationArray.append(CurrentWeatherModel)
+                DispatchQueue.main.async {
+                    self.recentlySearchLocationCollectionView.reloadData()
+                }
+                
+            } else {
+
+                let hasMatchingName = self.recentLocationArray.contains { objc in
+                    
+                    DispatchQueue.main.async {
+                        self.recentlySearchLocationCollectionView.reloadData()
+                    }
+                    return objc.location?.name == CurrentWeatherModel.location?.name
+                    
+                }
+                
+                if !hasMatchingName {
+
+                    self.recentLocationArray.append(CurrentWeatherModel)
+                    
+                    DispatchQueue.main.async {
+                        self.recentlySearchLocationCollectionView.reloadData()
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.recentlySearchLocationCollectionView.reloadData()
+                }
+            }
             
             DispatchQueue.main.async {
                 self.recentlySearchLocationCollectionView.reloadData()
             }
         }
+        
     }
     
     private func navigationToMainView() {
@@ -243,14 +277,18 @@ extension ManageLocationViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         if let searchText = searchBar.text, !searchText.isEmpty {
             NetworkManager.shared.checkAPIStatus(apiKeyword: searchText) { result in
+                
                 switch result {
                 case .success(1):
-                    self.navigationToMainView()
+                        self.fetchCurrentLocationWeather()
+
                 default:
 
                     self.showAlert(title: "Error", message: "Check correct data or now region not available".localized())
                 }
             }
         }
+        
+        print(self.recentLocationArray.count)
     }
 }

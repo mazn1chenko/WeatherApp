@@ -39,10 +39,12 @@ final class ManageLocationViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.hidesBackButton = true
 
+        print("ViewDidLoad")
+        fetchCurrentLocation()
+        fetchDataAboutAnotherLocation()
         setupViews()
         setupLayouts()
-        fetchCurrentLocationWeather()
-                
+                        
     }
     
     //MARK: - Functions setupViews and setupLayouts
@@ -146,27 +148,41 @@ final class ManageLocationViewController: UIViewController {
     
     //MARK: - Network
     
-    private func fetchCurrentLocationWeather() {
+    private func fetchCurrentLocation(){
+        
+        
+        if let savedData = UserDefaults.standard.data(forKey: "FirstCurrentLocation") {
+            if let loadedArray = try? JSONDecoder().decode(CurrentWeatherModel.self, from: savedData) {
+                self.recentLocationArray.append(loadedArray)
+                self.recentlySearchLocationCollectionView.reloadData()
+
+            } else {
+                print("Ошибка при распаковке данных из UserDefaults in ManageLocation")
+            }
+        } else {
+            print("Данные отсутствуют в UserDefaults.")
+        }
+        
+        
+    }
+    
+    private func fetchDataAboutAnotherLocation() {
+        
+        
         
         NetworkManager.shared.fetchCurrentWeather { CurrentWeatherModel in
-            DispatchQueue.main.async {
-                self.recentlySearchLocationCollectionView.reloadData()
-            }
+
             
             if self.recentLocationArray.isEmpty {
 
                 self.recentLocationArray.append(CurrentWeatherModel)
-                DispatchQueue.main.async {
-                    self.recentlySearchLocationCollectionView.reloadData()
-                }
+                
                 
             } else {
 
                 let hasMatchingName = self.recentLocationArray.contains { objc in
                     
-                    DispatchQueue.main.async {
-                        self.recentlySearchLocationCollectionView.reloadData()
-                    }
+
                     return objc.location?.name == CurrentWeatherModel.location?.name
                     
                 }
@@ -175,13 +191,10 @@ final class ManageLocationViewController: UIViewController {
 
                     self.recentLocationArray.append(CurrentWeatherModel)
                     
-                    DispatchQueue.main.async {
-                        self.recentlySearchLocationCollectionView.reloadData()
-                    }
+                    self.showAlert(title: "Added!".localized(), message: "Go to the main screen or click on the required cell".localized())
+
                 }
-                DispatchQueue.main.async {
-                    self.recentlySearchLocationCollectionView.reloadData()
-                }
+
             }
             
             DispatchQueue.main.async {
@@ -213,8 +226,9 @@ final class ManageLocationViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        fetchDataAboutAnotherLocation()
         recentlySearchLocationCollectionView.reloadData()
-        //?
+        
     }
     
     //MARK: Objc func
@@ -239,6 +253,12 @@ extension ManageLocationViewController: UICollectionViewDelegate {
 //MARK: - UICollectionViewDelegate
 
 extension ManageLocationViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        navigationToMainView()
+        
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -280,15 +300,20 @@ extension ManageLocationViewController: UISearchBarDelegate {
                 
                 switch result {
                 case .success(1):
-                        self.fetchCurrentLocationWeather()
+                    DispatchQueue.main.async {
+                        
+                        self.fetchDataAboutAnotherLocation()
 
+                        self.recentlySearchLocationCollectionView.reloadData()
+                    }
+                    
                 default:
 
                     self.showAlert(title: "Error", message: "Check correct data or now region not available".localized())
                 }
             }
+
         }
-        
-        print(self.recentLocationArray.count)
     }
+    
 }

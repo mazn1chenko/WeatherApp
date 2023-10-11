@@ -58,7 +58,7 @@ final class MainViewController: UIViewController {
         
         setupViews()
         setupLayouts()
-        
+//        saveFirstCurrentLocation()
         getApiUser()
         
         
@@ -276,6 +276,7 @@ extension MainViewController {
             if let encodedData = try? JSONEncoder().encode(self.currentWeatherArray) {
                 UserDefaults.standard.removeObject(forKey: "LastSessionCurrentWeather")
                 UserDefaults.standard.set(encodedData, forKey: "LastSessionCurrentWeather")
+                UserDefaults.standard.set(encodedData, forKey: "FirstCurrentLocation")
                 UserDefaults.standard.synchronize()
 
             } else {
@@ -362,7 +363,33 @@ extension MainViewController {
         
     }
     
+//    private func saveFirstCurrentLocation() {
+//
+//        NetworkManager.shared.fetchCurrentWeather { [weak self] CurrentWeather in
+//            guard let self = self else { return }
+//
+//
+//            self.currentWeatherArray.removeAll()
+//            self.currentWeatherArray.append(CurrentWeather)
+//
+//            // Сериализовать массив и сохранить его в UserDefaults
+//            if let encodedData = try? JSONEncoder().encode(self.currentWeatherArray) {
+//                UserDefaults.standard.removeObject(forKey: "FirstCurrentLocation")
+//                UserDefaults.standard.set(encodedData, forKey: "FirstCurrentLocation")
+//                UserDefaults.standard.synchronize()
+//
+//            } else {
+//                print("Ошибка при кодировании данных.")
+//            }
+//
+//        }
+//
+//
+//
+//    }
+    
     //MARK: Main internter function
+    
     private func getApiUser() {
         
         NetworkManager.shared.getIPAddress { Location in

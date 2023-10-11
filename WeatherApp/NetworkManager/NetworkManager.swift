@@ -129,6 +129,7 @@ class NetworkManager {
                         do {
                             if let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any], let ipAddress = json["ip"] as? String {
                                 self.location = ipAddress
+                                UserDefaults.standard.set(ipAddress, forKey: "FirstCurrentLocation")
 
                                 print("working API")
 

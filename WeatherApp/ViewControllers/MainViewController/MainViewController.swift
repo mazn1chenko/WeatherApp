@@ -58,10 +58,17 @@ final class MainViewController: UIViewController {
         
         setupViews()
         setupLayouts()
-//        saveFirstCurrentLocation()
+        //        saveFirstCurrentLocation()
         getApiUser()
         
-        
+//        NetworkManager.shared.lastFetch { sukaWork in
+//            
+//            print(sukaWork.languages[0].langISO == .uk)
+//            
+//            
+//            
+//            
+//        }
     }
     
     

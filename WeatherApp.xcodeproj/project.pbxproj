@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7101E7C82AD86DF300431F4F /* ConditionWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7101E7C72AD86DF300431F4F /* ConditionWeatherModel.swift */; };
 		712FA1B92ACEFF1900901888 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 712FA1B82ACEFF1900901888 /* Poppins-SemiBold.ttf */; };
 		712FA1BE2ACF1AE300901888 /* ForecastWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712FA1BD2ACF1AE300901888 /* ForecastWeatherCollectionViewCell.swift */; };
 		712FA1C02ACF239A00901888 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 712FA1BF2ACF239A00901888 /* Poppins-Medium.ttf */; };
@@ -50,6 +51,7 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
+		7101E7C72AD86DF300431F4F /* ConditionWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionWeatherModel.swift; sourceTree = "<group>"; };
 		712FA1B82ACEFF1900901888 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		712FA1BD2ACF1AE300901888 /* ForecastWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 		712FA1BF2ACF239A00901888 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				712FA1C22ACF2D8800901888 /* CurrentWeatherModel.swift */,
 				712FA1CA2ACF4C2E00901888 /* ForecastWeatherModel.swift */,
+				7101E7C72AD86DF300431F4F /* ConditionWeatherModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				71C6077C2AD16C4600B938A9 /* ForecastWeatherFor7DaysTableViewCell.swift in Sources */,
 				714B597C2ACEDC6C00E5DDF3 /* SceneDelegate.swift in Sources */,
 				714B59902ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift in Sources */,
+				7101E7C82AD86DF300431F4F /* ConditionWeatherModel.swift in Sources */,
 				71C607822AD1B79A00B938A9 /* String.swift in Sources */,
 				718688062AD46662004DC611 /* CurrentLocationCollectionViewCell.swift in Sources */,
 				71C607772AD1699800B938A9 /* ForecastWeather7DaysViewControllers.swift in Sources */,

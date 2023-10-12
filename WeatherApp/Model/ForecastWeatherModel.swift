@@ -24,9 +24,8 @@ struct Current: Codable {
     let pressureMB: Decimal?
     let humidity: Decimal?
     let cloud: Decimal?
-    let gustMph: Decimal?
-    let gustKph: Decimal?
-    
+//    let gustMph: Decimal?
+//    let gustKph: Decimal?
     
 
     enum CodingKeys: String, CodingKey {
@@ -40,8 +39,8 @@ struct Current: Codable {
         case windKph = "wind_kph"
         case pressureMB = "pressure_mb"
         case humidity, cloud
-        case gustMph = "gust_mph"
-        case gustKph = "gust_kph"
+//        case gustMph = "gust_mph"
+//        case gustKph = "gust_kph"
     }
 }
 
@@ -54,30 +53,33 @@ struct Condition: Codable {
 
 enum Text: String, Codable {
     
-    case clear = "Clear"
-    case cloudy = "Cloudy"
-    case lightDrizzle = "Light drizzle"
-    case lightRain = "Light rain"
+    case clear = "Clear" // //
+    case cloudy = "Cloudy" // //
+    case lightDrizzle = "Light drizzle" // //
+    case lightRain = "Light rain" // //
+    case moderaterain = "Moderate rain" //
     case lightRainShower = "Light rain shower"
-    case mist = "Mist"
-    case moderateRain = "Moderate rain"
-    case overcast = "Overcast"
-    case partlyCloudy = "Partly cloudy"
-    case patchyLightDrizzle = "Patchy light drizzle"
-    case patchyRainPossible = "Patchy rain possible"
-    case sunny = "Sunny"
-
-
+    case overcast = "Overcast" // //
+    case partlyCloudy = "Partly cloudy" //
+    case patchyLightDrizzle = "Patchy light drizzle" //
+    case patchyRainPossible = "Patchy rain possible" //
+    case sunny = "Sunny" //
+    case mist = "Mist" //
+    case fog = "Fog"
+    
     case мряка = "Мряка"
     case місцямиДощ = "Місцями дощ"
     case місцямиНевеликийДощ = "Місцями невеликий дощ"
     case невеликаХмарність = "Невелика хмарність"
+    case невеликаЗлива = "Невелика злива"
     case невеликийДощ = "Невеликий дощ"
     case помірнийДощ = "Помірний дощ"
     case сонячно = "Сонячно"
     case суцільнаХмарність = "Суцільна хмарність"
     case хмарно = "Хмарно"
     case ясно = "Ясно"
+    case туман = "Туман"
+    
 }
 
 //enum WindDir: String, Codable {
@@ -140,12 +142,12 @@ struct Hour: Codable {
     let pressureMB: Decimal?
     let pressureIn, precipMm, precipIn: Decimal?
     let humidity, cloud: Decimal?
-    let feelslikeC, feelslikeF, windchillC, windchillF: Decimal?
-    let heatindexC, heatindexF, dewpointC, dewpointF: Decimal?
+    //let feelslikeC, feelslikeF, windchillC, windchillF: Decimal?
+    //let heatindexC, heatindexF, dewpointC, dewpointF: Decimal?
     let willItRain, chanceOfRain, willItSnow, chanceOfSnow: Decimal?
-    let visKM, visMiles: Decimal?
-    let gustMph, gustKph: Decimal?
-    let uv: Decimal?
+//    let visKM, visMiles: Decimal?
+//    let gustMph, gustKph: Decimal?
+//    let uv: Decimal?
 
     enum CodingKeys: String, CodingKey {
         case timeEpoch = "time_epoch"
@@ -162,23 +164,23 @@ struct Hour: Codable {
         case precipMm = "precip_mm"
         case precipIn = "precip_in"
         case humidity, cloud
-        case feelslikeC = "feelslike_c"
-        case feelslikeF = "feelslike_f"
-        case windchillC = "windchill_c"
-        case windchillF = "windchill_f"
-        case heatindexC = "heatindex_c"
-        case heatindexF = "heatindex_f"
-        case dewpointC = "dewpoint_c"
-        case dewpointF = "dewpoint_f"
+//        case feelslikeC = "feelslike_c"
+//        case feelslikeF = "feelslike_f"
+//        case windchillC = "windchill_c"
+//        case windchillF = "windchill_f"
+//        case heatindexC = "heatindex_c"
+//        case heatindexF = "heatindex_f"
+//        case dewpointC = "dewpoint_c"
+//        case dewpointF = "dewpoint_f"
         case willItRain = "will_it_rain"
         case chanceOfRain = "chance_of_rain"
         case willItSnow = "will_it_snow"
         case chanceOfSnow = "chance_of_snow"
-        case visKM = "vis_km"
-        case visMiles = "vis_miles"
-        case gustMph = "gust_mph"
-        case gustKph = "gust_kph"
-        case uv
+//        case visKM = "vis_km"
+//        case visMiles = "vis_miles"
+//        case gustMph = "gust_mph"
+//        case gustKph = "gust_kph"
+//        case uv
     }
 }
 

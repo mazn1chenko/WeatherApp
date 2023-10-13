@@ -88,9 +88,18 @@ class ForecastWeatherFor7DaysTableViewCell: UITableViewCell {
         
         stateOfWeatherImage.setWeatherIcon(withCode: model.day?.condition?.code, isDay: 1)
         
-        minMaxTemperatureLabel.text =
-        "\(Int(truncating: NSDecimalNumber(decimal: model.day?.mintempC ?? -0)))°/\(Int(truncating:NSDecimalNumber(decimal: model.day?.maxtempC ?? -0)))°"
         
-        
+        if let selectedSegmentIndex = UserDefaults.standard.value(forKey: "selectedTempUnitIndex") as? Int {
+            if selectedSegmentIndex == 0 {
+
+                minMaxTemperatureLabel.text =
+                "\(Int(truncating: NSDecimalNumber(decimal: model.day?.mintempC ?? -0)))°/\(Int(truncating:NSDecimalNumber(decimal: model.day?.maxtempC ?? -0)))°"
+
+            } else {
+
+                minMaxTemperatureLabel.text =
+                "\(Int(truncating: NSDecimalNumber(decimal: model.day?.maxtempF ?? -0)))°/\(Int(truncating:NSDecimalNumber(decimal: model.day?.maxtempF ?? -0)))°"
+            }
+        }
     }
 }

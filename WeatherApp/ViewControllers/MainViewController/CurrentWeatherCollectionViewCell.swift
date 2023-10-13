@@ -293,9 +293,7 @@ final class CurrentWeatherCollectionViewCell: UICollectionViewCell {
     func configurateCell(model: CurrentWeatherModel) {
         
         locationNameLabel.text = model.location?.name
-        
-        currentTempLabel.text = "\(Int(NSDecimalNumber(decimal: model.current?.tempC ?? -0).doubleValue))°"
-        
+                
         stateOfWeatherTextLabel.text = "\(model.current?.condition?.text ?? "NothingToSay")"
         
         hudimityTextLabel.text = "\(model.current?.humidity ?? 000)% \n\("Hudimity".localized()) \(model.current?.humidity ?? 000)%"
@@ -309,8 +307,44 @@ final class CurrentWeatherCollectionViewCell: UICollectionViewCell {
         currentlyDateLabel.formatterDateEEEEdMMMM(timeEpoch: model.location?.localtimeEpoch)
         
         stateOfWeatherImage.setWeatherIcon(withCode: model.current?.condition?.code, isDay: model.current?.isDay)
+        
+        
+        if let selectedSegmentIndex = UserDefaults.standard.value(forKey: "selectedTempUnitIndex") as? Int {
+            if selectedSegmentIndex == 0 {
+
+                currentTempLabel.text = "\(Int(NSDecimalNumber(decimal: model.current?.tempC ?? -0).doubleValue))°"
+            } else {
+
+                currentTempLabel.text = "\(Int(NSDecimalNumber(decimal: model.current?.tempF ?? -0).doubleValue))°"
+                
+            }
+        }
+        
+        
+        if let selectedSegmentIndex = UserDefaults.standard.value(forKey: "selectedAtmUnitIndex") as? Int {
+            if selectedSegmentIndex == 0 {
+
+                pressureTextLabel.text = "\(model.current?.pressureMB ?? 000) \(("millibars").localized()) \n\("Pressure".localized())"
+            } else {
+
+                pressureTextLabel.text = "\(model.current?.pressureIn ?? 000) \(("inches").localized()) \n\("Pressure".localized())"
+
+            }
+        }
+        
+        
+        if let selectedSegmentIndex = UserDefaults.standard.value(forKey: "selectedWindUnitIndex") as? Int {
+            if selectedSegmentIndex == 0 {
+
+                windSpeedLabel.text = "\(model.current?.windKph ?? 000) \(("km/h").localized()) \n\("Wind".localized())"
+            } else {
+
+                windSpeedLabel.text = "\(model.current?.windMph ?? 000) \(("mp/h").localized()) \n\("Wind".localized())"
+
+            }
+        }
     }
-    
 }
+
 
 

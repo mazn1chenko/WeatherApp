@@ -96,6 +96,16 @@ final class ForecastWeatherCollectionViewCell: UICollectionViewCell {
         
         stateOfWeatherImageView.setWeatherIcon(withCode: index.condition?.code, isDay: index.isDay)
         
+        if let selectedSegmentIndex = UserDefaults.standard.value(forKey: "selectedTempUnitIndex") as? Int {
+            if selectedSegmentIndex == 0 {
+
+                temperatureOfWeatherLabel.text = "\(Int(NSDecimalNumber(decimal: index.tempC ?? -0).doubleValue))°"
+            } else {
+
+                temperatureOfWeatherLabel.text = "\(Int(NSDecimalNumber(decimal: index.tempF ?? -0).doubleValue))°"
+                
+            }
+        }
         
     }
     

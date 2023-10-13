@@ -9,8 +9,9 @@ import Foundation
 import UIKit
 
 
+
 final class SettingsViewController: UIViewController {
-    
+        
     private let backgroundView = UIView()
     
     //MARK: Buttons
@@ -36,9 +37,9 @@ final class SettingsViewController: UIViewController {
     
     //MARK: settingsSegmentControlStackView
     private let settingsSegmentControlStackView = UIStackView()
-    private let temperatureUnitSegmentControl = UISegmentedControl(items: ["C°", "°F"])
-    private let windSpeedUnitSegmentControl = UISegmentedControl(items: ["km/h", "mil/h"])
-    private let atmosphericPressureUnitSegmentControl = UISegmentedControl(items: ["mbar", "atm"])
+    private let temperatureUnitSegmentControl = UISegmentedControl(items: ["°C", "°F"])
+    private let windSpeedUnitSegmentControl = UISegmentedControl(items: ["km/h", "mp/h"])
+    private let atmosphericPressureUnitSegmentControl = UISegmentedControl(items: ["mbar", "inch"])
 
     private let separator = UIView()
     
@@ -135,8 +136,13 @@ final class SettingsViewController: UIViewController {
         settingsSegmentControlStackView.alignment = .trailing
         
         temperatureUnitSegmentControl.selectedSegmentIndex = 0
+        temperatureUnitSegmentControl.addTarget(self, action: #selector(changeTempUnit), for: .allEvents)
+        
         windSpeedUnitSegmentControl.selectedSegmentIndex = 0
+        windSpeedUnitSegmentControl.addTarget(self, action: #selector(changeWindUnit), for: .allEvents)
+        
         atmosphericPressureUnitSegmentControl.selectedSegmentIndex = 0
+        atmosphericPressureUnitSegmentControl.addTarget(self, action: #selector(changeAtmUnit), for: .allEvents)
 
         separator.translatesAutoresizingMaskIntoConstraints = false
         separator.backgroundColor = .white
@@ -242,15 +248,14 @@ final class SettingsViewController: UIViewController {
         
     }
     
-    //MARK: - Enother func
-    
-    private func setAppLanguage(languageCode: String) {
-        UserDefaults.standard.set(languageCode, forKey: "AppLanguage")
-        UserDefaults.standard.synchronize()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        showInfoAboutChangeLanguage()
+        reloadActuallySegmentIndex()
         
     }
+    //MARK: - Enother func
+
     
     private func showInfoAboutChangeLanguage() {
         let alert = UIAlertController(title: "Done!".localized(),
@@ -265,6 +270,41 @@ final class SettingsViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    private func reloadActuallySegmentIndex() {
+        
+        if let selectedSegmentIndex = UserDefaults.standard.value(forKey: "selectedLangUnitIndex") as? Int {
+            
+            languageSegmentControl.selectedSegmentIndex = selectedSegmentIndex
+            
+        }
+        
+        if let selectedSegmentIndex = UserDefaults.standard.value(forKey: "selectedTempUnitIndex") as? Int {
+            
+            temperatureUnitSegmentControl.selectedSegmentIndex = selectedSegmentIndex
+            
+        }
+        
+        if let selectedSegmentIndex = UserDefaults.standard.value(forKey: "selectedAtmUnitIndex") as? Int {
+            
+            atmosphericPressureUnitSegmentControl.selectedSegmentIndex = selectedSegmentIndex
+            
+        }
+        
+        if let selectedSegmentIndex = UserDefaults.standard.value(forKey: "selectedWindUnitIndex") as? Int {
+            
+            windSpeedUnitSegmentControl.selectedSegmentIndex = selectedSegmentIndex
+            
+        }
+        
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     
     //MARK: - Objc func/target func
     
@@ -275,28 +315,56 @@ final class SettingsViewController: UIViewController {
     
     @objc func tapAboutButton() {
         
+        showAlert(title: "About", message: "An app to view the weather forecast!".localized())
+        
     }
     
     @objc func tapPrivacyButton() {
         
-        
+        showAlert(title: "About", message: "The apps are made for training and introductory purposes without any financial gain.".localized())
+
     }
     
     @objc func changeLang(_ sender: UISegmentedControl) {
         
-        selectedLanguageIndex = sender.selectedSegmentIndex
-        UserDefaults.standard.set(selectedLanguageIndex, forKey: "SelectedLanguageIndex")
-        UserDefaults.standard.synchronize()
+        let selectedLanguageIndex = sender.selectedSegmentIndex
+        let availableLanguages = ["en", "uk"] // Здесь укажи языки, поддерживаемые в приложении
         
-        switch sender.selectedSegmentIndex {
-        case 0:
-            setAppLanguage(languageCode: "en")
-        case 1:
-            setAppLanguage(languageCode: "uk")
-
-        default:
-            break
+        if selectedLanguageIndex < availableLanguages.count {
+            let selectedLanguage = availableLanguages[selectedLanguageIndex]
+            UserDefaults.standard.set(sender.selectedSegmentIndex, forKey: "selectedLangUnitIndex")
+            UserDefaults.standard.set(selectedLanguage, forKey: "AppLanguage")
+            
+            if let selectedLanguage = UserDefaults.standard.string(forKey: "AppLanguage") {
+                UserDefaults.standard.set([selectedLanguage], forKey: "AppleLanguages")
+            }
         }
+        
+        showInfoAboutChangeLanguage()
+        
+    }
+    
+    @objc func changeTempUnit(_ sender: UISegmentedControl) {
+        
+        UserDefaults.standard.set(sender.selectedSegmentIndex, forKey: "selectedTempUnitIndex")
+        UserDefaults.standard.synchronize()
+
+        
+    }
+    
+    @objc func changeAtmUnit(_ sender: UISegmentedControl) {
+        
+        UserDefaults.standard.set(sender.selectedSegmentIndex, forKey: "selectedAtmUnitIndex")
+        UserDefaults.standard.synchronize()
+
+        
+    }
+    
+    @objc func changeWindUnit(_ sender: UISegmentedControl) {
+        
+        UserDefaults.standard.set(sender.selectedSegmentIndex, forKey: "selectedWindUnitIndex")
+        UserDefaults.standard.synchronize()
+
         
     }
     

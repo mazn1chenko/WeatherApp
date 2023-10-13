@@ -58,8 +58,9 @@ final class ManageLocationViewController: UIViewController {
         backgroundView.layer.cornerRadius = 20
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textAlignment = .center
         titleLabel.text = "Manage location".localized()
-        titleLabel.font = UIFont(name: "Poppins-SemiBold", size: 24)
+        titleLabel.font = UIFont(name: "Poppins-SemiBold", size: 20)
         
         customBackButton.translatesAutoresizingMaskIntoConstraints = false
         customBackButton.setImage(UIImage(named: "bi_arrow-left-short"), for: .normal)

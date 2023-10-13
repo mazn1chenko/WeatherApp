@@ -370,6 +370,8 @@ extension MainViewController {
         
     }
     
+    
+    
 //    private func saveFirstCurrentLocation() {
 //
 //        NetworkManager.shared.fetchCurrentWeather { [weak self] CurrentWeather in
@@ -463,6 +465,7 @@ extension MainViewController {
 
     
 }
+
 
 
 

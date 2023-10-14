@@ -31,6 +31,10 @@ final class ManageLocationViewController: UIViewController {
     
     private let customBackButton = UIButton(type: .system)
     
+    private let resetRecentlyArray = UIButton(type: .system)
+    
+    var currentLocationArray = [CurrentWeatherModel]()
+    
     var recentLocationArray = [CurrentWeatherModel]()
                 
     override func viewDidLoad() {
@@ -39,8 +43,6 @@ final class ManageLocationViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.hidesBackButton = true
 
-        print("ViewDidLoad")
-        fetchCurrentLocation()
         fetchDataAboutAnotherLocation()
         setupViews()
         setupLayouts()
@@ -59,13 +61,18 @@ final class ManageLocationViewController: UIViewController {
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textAlignment = .center
-        titleLabel.text = "Manage location".localized()
+        titleLabel.text = "Location".localized()
         titleLabel.font = UIFont(name: "Poppins-SemiBold", size: 20)
         
         customBackButton.translatesAutoresizingMaskIntoConstraints = false
         customBackButton.setImage(UIImage(named: "bi_arrow-left-short"), for: .normal)
         customBackButton.tintColor = .white
         customBackButton.addTarget(self, action: #selector(backToMainView), for: .touchUpInside)
+        
+        resetRecentlyArray.setImage(.remove, for: .normal)
+        resetRecentlyArray.translatesAutoresizingMaskIntoConstraints = false
+        resetRecentlyArray.tintColor = .white
+        resetRecentlyArray.addTarget(self, action: #selector(resetRecentLocation), for: .touchUpInside)
         
         searchLocationBar.translatesAutoresizingMaskIntoConstraints = false
         searchLocationBar.delegate = self
@@ -104,6 +111,7 @@ final class ManageLocationViewController: UIViewController {
     private func setupLayouts() {
         view.addSubview(backgroundView)
         backgroundView.addSubview(customBackButton)
+        backgroundView.addSubview(resetRecentlyArray)
         backgroundView.addSubview(searchLocationBar)
         backgroundView.addSubview(titleLabel)
         backgroundView.addSubview(recentlySearchLocationCollectionView)
@@ -125,6 +133,11 @@ final class ManageLocationViewController: UIViewController {
             customBackButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: baseOffseats),
             customBackButton.heightAnchor.constraint(equalToConstant: 32),
             customBackButton.widthAnchor.constraint(equalToConstant: 32),
+            
+            resetRecentlyArray.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 15),
+            resetRecentlyArray.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -baseOffseats),
+            resetRecentlyArray.heightAnchor.constraint(equalToConstant: 32),
+            resetRecentlyArray.widthAnchor.constraint(equalToConstant: 32),
             
             searchLocationBar.topAnchor.constraint(equalTo: customBackButton.bottomAnchor, constant: 30),
             searchLocationBar.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: baseOffseats),
@@ -151,10 +164,10 @@ final class ManageLocationViewController: UIViewController {
     
     private func fetchCurrentLocation(){
         
-        
+
         if let savedData = UserDefaults.standard.data(forKey: "FirstCurrentLocation") {
-            if let loadedArray = try? JSONDecoder().decode(CurrentWeatherModel.self, from: savedData) {
-                self.recentLocationArray.append(loadedArray)
+            if let loadedArray = try? JSONDecoder().decode([CurrentWeatherModel].self, from: savedData) {
+                self.currentLocationArray = loadedArray
                 self.recentlySearchLocationCollectionView.reloadData()
 
             } else {
@@ -165,37 +178,74 @@ final class ManageLocationViewController: UIViewController {
         }
         
         
+        
+        if let savedData = UserDefaults.standard.data(forKey: "RecentLocationArray") {
+            if let loadedArray = try? JSONDecoder().decode([CurrentWeatherModel].self, from: savedData) {
+                self.recentLocationArray = loadedArray
+                self.recentlySearchLocationCollectionView.reloadData()
+                
+            } else {
+                print("Ошибка при распаковке данных из UserDefaults.")
+            }
+        }
+
+        
+        self.recentlySearchLocationCollectionView.reloadData()
     }
+
     
     private func fetchDataAboutAnotherLocation() {
         
         
         
-        NetworkManager.shared.fetchCurrentWeather { CurrentWeatherModel in
+        NetworkManager.shared.fetchCurrentWeather { CurrentWeather in
 
             
-            if self.recentLocationArray.isEmpty {
+            if self.currentLocationArray.isEmpty {
 
-                self.recentLocationArray.append(CurrentWeatherModel)
+                
+                self.fetchCurrentLocation()
                 
                 
             } else {
-
-                let hasMatchingName = self.recentLocationArray.contains { objc in
+                
+                
+                let hasMatchingNameInCurrentLocation = self.currentLocationArray.contains { objc in
                     
-
-                    return objc.location?.name == CurrentWeatherModel.location?.name
+                    
+                    return objc.location?.name == CurrentWeather.location?.name
                     
                 }
                 
-                if !hasMatchingName {
-
-                    self.recentLocationArray.append(CurrentWeatherModel)
+                let hasMatchingNameInRecentlyLocation = self.recentLocationArray.contains { objc in
+                    
+                    
+                    return objc.location?.name == CurrentWeather.location?.name
+                    
+                }
+                
+                if !hasMatchingNameInCurrentLocation && !hasMatchingNameInRecentlyLocation {
+                    
+                    self.recentLocationArray.append(CurrentWeather)
                     
                     self.showAlert(title: "Added!".localized(), message: "Go to the main screen or click on the required cell".localized())
-
+                    
+                    if let encodedData = try? JSONEncoder().encode(self.recentLocationArray) {
+                        UserDefaults.standard.set(encodedData, forKey: "RecentLocationArray")
+                        UserDefaults.standard.synchronize()
+                        
+                    } else {
+                        print("Ошибка при кодировании данных.")
+                    }
+                    
+                    
+                }else{
+                    
+                    
+                    
+                    
                 }
-
+                
             }
             
             DispatchQueue.main.async {
@@ -240,6 +290,33 @@ final class ManageLocationViewController: UIViewController {
         
     }
     
+    @objc func resetRecentLocation() {
+        
+        let alertController = UIAlertController(title: "Clear?", message: "Want to clear all recent locations?", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Yes", style: .default) { _ in
+            
+            UserDefaults.standard.removeObject(forKey: "RecentLocationArray")
+            UserDefaults.standard.synchronize()
+            self.recentLocationArray.removeAll()
+            
+            DispatchQueue.main.async {
+                self.recentlySearchLocationCollectionView.reloadData()
+            }
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "No", style: .cancel)
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+
+        
+
+    }
+    
 }
 
 
@@ -263,17 +340,28 @@ extension ManageLocationViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return recentLocationArray.count
+        return currentLocationArray.count + recentLocationArray.count
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CurrentLocationCollectionViewCell.cellId, for: indexPath) as? CurrentLocationCollectionViewCell
         cell?.layer.cornerRadius = 20
+
+        
         if indexPath.row == 0 {
+            
             cell?.weatherOfCurrentLocationImageView.isHidden = false
+            cell?.configureCell(model: currentLocationArray[0])
+            
+        }else{
+            
+            cell?.configureCell(model: recentLocationArray[indexPath.row - 1])
+        
+
         }
-        cell?.configureCell(model: recentLocationArray[indexPath.row])
+        
+        
         return cell!
     }
 }

@@ -4,5 +4,6 @@
 
 Display weather data based on the user's geolocation. Or manually enter a specific city. Weather forecast for the day and for the whole week. Saves the last session and displays it when there is no internet connection. Localization in two languages: English and Ukrainian.
 
-https://github.com/mazn1chenko/WeatherApp/assets/112626390/d963488b-bfda-49cf-9d83-0140f7e8fa8d
+
+https://github.com/mazn1chenko/WeatherApp/assets/112626390/abe3b963-b020-4c9b-8a75-a9ffa4d311a7
 

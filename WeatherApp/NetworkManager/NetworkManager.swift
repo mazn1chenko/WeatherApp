@@ -119,28 +119,6 @@ class NetworkManager {
 
     }
     
-//    func lastFetch(completion: @escaping (ConditionWeatherModel) -> (Void)) {
-//
-//        let weatherAPIURL = "https://www.weatherapi.com/docs/conditions.json"
-//
-//        AF.request(weatherAPIURL, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil, interceptor: nil)
-//            .validate()
-//            .response { response in
-//                switch response.result {
-//                case .success(let data):
-//                    do {
-//                        let jsonData = try JSONDecoder().decode(ConditionWeatherModel.self, from: (data ?? jsonDataa)!)
-//                        completion(jsonData)
-//
-//                    } catch {
-//                        print(error.localizedDescription)
-//                    }
-//                case .failure(let error):
-//                    print(error)
-//                }
-//
-//            }
-//    }
     
     func getIPAddress(completion: @escaping (Result<String, Error>) -> Void) {
         let apiUrl = "https://api64.ipify.org?format=json"

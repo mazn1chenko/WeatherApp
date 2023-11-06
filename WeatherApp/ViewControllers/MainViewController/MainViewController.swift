@@ -271,7 +271,6 @@ extension MainViewController {
             self.currentWeatherArray.removeAll()
             self.currentWeatherArray.append(CurrentWeather)
 
-            // Сериализовать массив и сохранить его в UserDefaults
             if let encodedData = try? JSONEncoder().encode(self.currentWeatherArray) {
                 UserDefaults.standard.removeObject(forKey: "LastSessionCurrentWeather")
                 UserDefaults.standard.set(encodedData, forKey: "LastSessionCurrentWeather")

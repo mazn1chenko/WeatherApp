@@ -84,7 +84,7 @@ final class ManageLocationViewController: UIViewController {
                 attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
             )
         }
-        
+                
         if let searchIcon = UIImage(systemName: "magnifyingglass") {
             
             let redSearchIcon = searchIcon.withTintColor(.black, renderingMode: .alwaysOriginal)
@@ -329,7 +329,21 @@ extension ManageLocationViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        let summaryLocation = currentLocationArray + recentLocationArray
+        
+                    
+        guard let locationInCell = summaryLocation[indexPath.row].location?.name else {
+
+            NotificationCenter.shared.showAlertWith(title: "Something happens", message: "Error", navigationController: self)
+            
+            return
+        }
+        
+        NetworkManager.shared.location = locationInCell
+        
         navigationToMainView()
+        
+        
         
     }
     
@@ -350,7 +364,7 @@ extension ManageLocationViewController: UICollectionViewDataSource {
             cell?.configureCell(model: currentLocationArray[0])
             
         }else{
-            
+            cell?.weatherOfCurrentLocationImageView.isHidden = true
             cell?.configureCell(model: recentLocationArray[indexPath.row - 1])
         
 

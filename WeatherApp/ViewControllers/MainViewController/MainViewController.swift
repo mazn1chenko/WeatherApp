@@ -58,17 +58,8 @@ final class MainViewController: UIViewController {
         
         setupViews()
         setupLayouts()
-        //        saveFirstCurrentLocation()
         getApiUser()
         
-//        NetworkManager.shared.lastFetch { sukaWork in
-//            
-//            print(sukaWork.languages[0].langISO == .uk)
-//            
-//            
-//            
-//            
-//        }
     }
     
     
@@ -193,12 +184,11 @@ final class MainViewController: UIViewController {
         gettingDataForCurrentWeather()
         gettingDataForForecastWeatherForDay()
         
-        //getApiUser()
-
         DispatchQueue.main.async {
             self.forecastWeatherCollectionView.reloadData()
             self.currentWeatherCollectionView.reloadData()
         }
+        
         
     }
 
@@ -451,16 +441,9 @@ extension MainViewController {
     //MARK: Network alert
     
     private func showNoInternetAlert() {
-        let alert = UIAlertController(title: "No Internet Connection",
-                                      message: "Please check your internet connection and try again.",
-                                      preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
-        }
-        
-        alert.addAction(okAction)
-        
-        present(alert, animated: true, completion: nil)
+        NotificationCenter.shared.showAlertWith(title: "No Internet Connection", message: "Please check your internet connection and try again.".localized(), navigationController: self)
+
     }
 
     

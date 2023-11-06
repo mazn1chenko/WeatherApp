@@ -24,6 +24,7 @@
 		714B59962ACEFC8800E5DDF3 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 714B59952ACEFC8800E5DDF3 /* Poppins-Regular.ttf */; };
 		718688062AD46662004DC611 /* CurrentLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718688052AD46662004DC611 /* CurrentLocationCollectionViewCell.swift */; };
 		719017512AD2E14C00B0665E /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 719017502AD2E14C00B0665E /* Reachability */; };
+		71A3081E2AF954150097F708 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A3081D2AF954150097F708 /* NotificationCenter.swift */; };
 		71A818162AD0654900D0BFFC /* EnumForStateOfWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A818152AD0654900D0BFFC /* EnumForStateOfWeather.swift */; };
 		71A818192AD073ED00D0BFFC /* StateOfImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A818182AD073ED00D0BFFC /* StateOfImage.swift */; };
 		71A8181D2AD0773C00D0BFFC /* FormatterDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A8181C2AD0773C00D0BFFC /* FormatterDate.swift */; };
@@ -82,6 +83,7 @@
 		714B598F2ACEE00600E5DDF3 /* CurrentWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 		714B59952ACEFC8800E5DDF3 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		718688052AD46662004DC611 /* CurrentLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationCollectionViewCell.swift; sourceTree = "<group>"; };
+		71A3081D2AF954150097F708 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		71A818152AD0654900D0BFFC /* EnumForStateOfWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumForStateOfWeather.swift; sourceTree = "<group>"; };
 		71A818182AD073ED00D0BFFC /* StateOfImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateOfImage.swift; sourceTree = "<group>"; };
 		71A8181C2AD0773C00D0BFFC /* FormatterDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatterDate.swift; sourceTree = "<group>"; };
@@ -163,11 +165,12 @@
 				714B598E2ACEDE1400E5DDF3 /* Application */,
 				71A818142AD0652800D0BFFC /* EnumForStateOfWeather */,
 				71A818172AD073C600D0BFFC /* Extension */,
+				71C607882AD1B8D000B938A9 /* Localizable.strings */,
 				712FA1C12ACF2D7200901888 /* Model */,
 				712FA1C42ACF2DA600901888 /* NetworkManager */,
+				71A3081C2AF953FA0097F708 /* NotificationCenter */,
 				714B598D2ACEDD5100E5DDF3 /* SupportingFiles */,
 				71A8181E2AD07D2900D0BFFC /* ViewControllers */,
-				71C607882AD1B8D000B938A9 /* Localizable.strings */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -200,6 +203,14 @@
 				712FA1BF2ACF239A00901888 /* Poppins-Medium.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		71A3081C2AF953FA0097F708 /* NotificationCenter */ = {
+			isa = PBXGroup;
+			children = (
+				71A3081D2AF954150097F708 /* NotificationCenter.swift */,
+			);
+			path = NotificationCenter;
 			sourceTree = "<group>";
 		};
 		71A818142AD0652800D0BFFC /* EnumForStateOfWeather */ = {
@@ -434,6 +445,7 @@
 				712FA1BE2ACF1AE300901888 /* ForecastWeatherCollectionViewCell.swift in Sources */,
 				712FA1C32ACF2D8800901888 /* CurrentWeatherModel.swift in Sources */,
 				71C6077F2AD1AA1600B938A9 /* ManageLocationViewController.swift in Sources */,
+				71A3081E2AF954150097F708 /* NotificationCenter.swift in Sources */,
 				712FA1C62ACF2DB900901888 /* NetworkManager.swift in Sources */,
 				71A818162AD0654900D0BFFC /* EnumForStateOfWeather.swift in Sources */,
 				714B597A2ACEDC6C00E5DDF3 /* AppDelegate.swift in Sources */,

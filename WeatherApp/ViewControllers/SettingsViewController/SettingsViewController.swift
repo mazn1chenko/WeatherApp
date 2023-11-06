@@ -258,16 +258,9 @@ final class SettingsViewController: UIViewController {
 
     
     private func showInfoAboutChangeLanguage() {
-        let alert = UIAlertController(title: "Done!".localized(),
-                                      message: "When restarting the application - the language will be changed".localized(),
-                                      preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
-        }
-        
-        alert.addAction(okAction)
-        
-        present(alert, animated: true, completion: nil)
+        NotificationCenter.shared.showAlertWith(title: "Done!".localized(), message: "When restarting the application - the language will be changed".localized(), navigationController: self)
+
     }
     
     private func reloadActuallySegmentIndex() {
@@ -298,13 +291,6 @@ final class SettingsViewController: UIViewController {
         
     }
     
-    private func showAlert(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
-    }
-    
     
     //MARK: - Objc func/target func
     
@@ -314,21 +300,22 @@ final class SettingsViewController: UIViewController {
     }
     
     @objc func tapAboutButton() {
-        
-        showAlert(title: "About", message: "An app to view the weather forecast!".localized())
+                
+        NotificationCenter.shared.showAlertWith(title: "About", message: "An app to view the weather forecast!".localized(), navigationController: self)
+
         
     }
     
     @objc func tapPrivacyButton() {
         
-        showAlert(title: "About", message: "The apps are made for training and introductory purposes without any financial gain.".localized())
+        NotificationCenter.shared.showAlertWith(title: "About", message: "The apps are made for training and introductory purposes without any financial gain.".localized(), navigationController: self)
 
     }
     
     @objc func changeLang(_ sender: UISegmentedControl) {
         
         let selectedLanguageIndex = sender.selectedSegmentIndex
-        let availableLanguages = ["en", "uk"] // Здесь укажи языки, поддерживаемые в приложении
+        let availableLanguages = ["en", "uk"] 
         
         if selectedLanguageIndex < availableLanguages.count {
             let selectedLanguage = availableLanguages[selectedLanguageIndex]

@@ -228,7 +228,8 @@ final class ManageLocationViewController: UIViewController {
                     
                     self.recentLocationArray.append(CurrentWeather)
                     
-                    self.showAlert(title: "Added!".localized(), message: "Go to the main screen or click on the required cell".localized())
+                    NotificationCenter.shared.showAlertWith(title: "Added!".localized(), message: "Go to the main screen or click on the required cell".localized(), navigationController: self)
+
                     
                     if let encodedData = try? JSONEncoder().encode(self.recentLocationArray) {
                         UserDefaults.standard.set(encodedData, forKey: "RecentLocationArray")
@@ -266,13 +267,6 @@ final class ManageLocationViewController: UIViewController {
         navigationController?.popViewController(animated: false)
     }
     
-    //MARK: Alert
-    private func showAlert(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -292,7 +286,7 @@ final class ManageLocationViewController: UIViewController {
     
     @objc func resetRecentLocation() {
         
-        let alertController = UIAlertController(title: "Clear?", message: "Want to clear all recent locations?", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Clear?", message: "Want to clear all recent locations?".localized(), preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "Yes", style: .default) { _ in
             
@@ -398,7 +392,8 @@ extension ManageLocationViewController: UISearchBarDelegate {
                     
                 default:
 
-                    self.showAlert(title: "Error", message: "Check correct data or now region not available".localized())
+                    NotificationCenter.shared.showAlertWith(title: "Error", message: "Check correct data or now region not available".localized(), navigationController: self)
+
                 }
             }
 

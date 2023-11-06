@@ -154,17 +154,20 @@ final class SettingsViewController: UIViewController {
     private func setupLayouts() {
         view.addSubview(backgroundView)
         
-        backgroundView.addSubview(customBackButton)
-        backgroundView.addSubview(aboutButton)
-        backgroundView.addSubview(privacyPolicyButton)
+        backgroundView.add(subviews:
+                                    customBackButton,
+                                    aboutButton,
+                                    privacyPolicyButton)
         
-        backgroundView.addSubview(titleLabel)
-        backgroundView.addSubview(unitLabel)
-        backgroundView.addSubview(extraLabel)
+        backgroundView.add(subviews:
+                                    titleLabel,
+                                    unitLabel,
+                                    extraLabel)
         
         //MARK: Language layout
-        backgroundView.addSubview(languageLabel)
-        backgroundView.addSubview(languageSegmentControl)
+        backgroundView.add(subviews:
+                                    languageLabel,
+                                    languageSegmentControl)
         
         //MARK: settingsLabelStackView layout
         backgroundView.addSubview(settingsLabelStackView)

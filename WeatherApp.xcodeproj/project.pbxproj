@@ -25,6 +25,7 @@
 		718688062AD46662004DC611 /* CurrentLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718688052AD46662004DC611 /* CurrentLocationCollectionViewCell.swift */; };
 		719017512AD2E14C00B0665E /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 719017502AD2E14C00B0665E /* Reachability */; };
 		71A3081E2AF954150097F708 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A3081D2AF954150097F708 /* NotificationCenter.swift */; };
+		71A308212AF95DCB0097F708 /* extraFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A308202AF95DCB0097F708 /* extraFunc.swift */; };
 		71A818162AD0654900D0BFFC /* EnumForStateOfWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A818152AD0654900D0BFFC /* EnumForStateOfWeather.swift */; };
 		71A818192AD073ED00D0BFFC /* StateOfImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A818182AD073ED00D0BFFC /* StateOfImage.swift */; };
 		71A8181D2AD0773C00D0BFFC /* FormatterDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A8181C2AD0773C00D0BFFC /* FormatterDate.swift */; };
@@ -84,6 +85,7 @@
 		714B59952ACEFC8800E5DDF3 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		718688052AD46662004DC611 /* CurrentLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		71A3081D2AF954150097F708 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
+		71A308202AF95DCB0097F708 /* extraFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extraFunc.swift; sourceTree = "<group>"; };
 		71A818152AD0654900D0BFFC /* EnumForStateOfWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumForStateOfWeather.swift; sourceTree = "<group>"; };
 		71A818182AD073ED00D0BFFC /* StateOfImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateOfImage.swift; sourceTree = "<group>"; };
 		71A8181C2AD0773C00D0BFFC /* FormatterDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatterDate.swift; sourceTree = "<group>"; };
@@ -213,6 +215,14 @@
 			path = NotificationCenter;
 			sourceTree = "<group>";
 		};
+		71A308222AF95E050097F708 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				71A308202AF95DCB0097F708 /* extraFunc.swift */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
 		71A818142AD0652800D0BFFC /* EnumForStateOfWeather */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,6 +234,7 @@
 		71A818172AD073C600D0BFFC /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				71A308222AF95E050097F708 /* UIView */,
 				71A818212AD07E5500D0BFFC /* UIColor */,
 				71A8181B2AD0771E00D0BFFC /* UILabel */,
 				71A8181A2AD076E700D0BFFC /* UIImageView */,
@@ -439,6 +450,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71A818232AD07E6600D0BFFC /* extraColor.swift in Sources */,
+				71A308212AF95DCB0097F708 /* extraFunc.swift in Sources */,
 				71A8181D2AD0773C00D0BFFC /* FormatterDate.swift in Sources */,
 				71A818192AD073ED00D0BFFC /* StateOfImage.swift in Sources */,
 				714B597E2ACEDC6C00E5DDF3 /* MainViewController.swift in Sources */,

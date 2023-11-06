@@ -61,10 +61,11 @@ final class ForecastWeatherCollectionViewCell: UICollectionViewCell {
     //MARK: setupLayouts
 
     private func setupLayouts() {
-        addSubview(timeOfWeatherLabel)
-        addSubview(stateOfWeatherImageView)
-        addSubview(temperatureOfWeatherLabel)
-        addSubview(chanceOfRainLabel)
+        add(subviews:
+                    timeOfWeatherLabel,
+                    stateOfWeatherImageView,
+                    temperatureOfWeatherLabel,
+                    chanceOfRainLabel)
         
         NSLayoutConstraint.activate([
             

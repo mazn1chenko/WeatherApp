@@ -47,8 +47,9 @@ class ForecastWeatherFor7DaysViewController: UIViewController {
     //MARK: setupLayouts
     
     private func setupLayouts() {
-        view.addSubview(forecastWeatherFor7DaysTableView)
-        view.addSubview(headerLabel)
+        view.add(subviews:
+                        forecastWeatherFor7DaysTableView,
+                        headerLabel)
         
         NSLayoutConstraint.activate([
             

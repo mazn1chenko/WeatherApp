@@ -108,12 +108,14 @@ final class MainViewController: UIViewController {
     //MARK: setupLayouts
 
     private func setupLayouts() {
-        view.addSubview(backgroundViewForForecastWeather)
-        view.addSubview(currentWeatherCollectionView)
-        view.addSubview(forecastWeatherCollectionView)
-        view.addSubview(forecastFor7DaysBottom)
-        view.addSubview(headerForForecastWeatherLabel)
-        view.addSubview(forecastFor7DaysStackView)
+        view.add(subviews:
+                        backgroundViewForForecastWeather,
+                        currentWeatherCollectionView,
+                        forecastWeatherCollectionView,
+                        forecastFor7DaysBottom,
+                        headerForForecastWeatherLabel,
+                        forecastFor7DaysStackView)
+        
         forecastFor7DaysStackView.addArrangedSubview(forecastFor7DaysBottom)
         forecastFor7DaysStackView.addArrangedSubview(forecastFor7DaysImageView)
         
@@ -360,32 +362,6 @@ extension MainViewController {
         
     }
     
-    
-    
-//    private func saveFirstCurrentLocation() {
-//
-//        NetworkManager.shared.fetchCurrentWeather { [weak self] CurrentWeather in
-//            guard let self = self else { return }
-//
-//
-//            self.currentWeatherArray.removeAll()
-//            self.currentWeatherArray.append(CurrentWeather)
-//
-//            // Сериализовать массив и сохранить его в UserDefaults
-//            if let encodedData = try? JSONEncoder().encode(self.currentWeatherArray) {
-//                UserDefaults.standard.removeObject(forKey: "FirstCurrentLocation")
-//                UserDefaults.standard.set(encodedData, forKey: "FirstCurrentLocation")
-//                UserDefaults.standard.synchronize()
-//
-//            } else {
-//                print("Ошибка при кодировании данных.")
-//            }
-//
-//        }
-//
-//
-//
-//    }
     
     //MARK: Main internter function
     

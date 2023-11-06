@@ -110,11 +110,12 @@ final class ManageLocationViewController: UIViewController {
     
     private func setupLayouts() {
         view.addSubview(backgroundView)
-        backgroundView.addSubview(customBackButton)
-        backgroundView.addSubview(resetRecentlyArray)
-        backgroundView.addSubview(searchLocationBar)
-        backgroundView.addSubview(titleLabel)
-        backgroundView.addSubview(recentlySearchLocationCollectionView)
+        backgroundView.add(subviews:
+                                    customBackButton,
+                                    resetRecentlyArray,
+                                    searchLocationBar,
+                                    titleLabel,
+                                    recentlySearchLocationCollectionView)
         
         let baseOffseats: CGFloat = 20
         

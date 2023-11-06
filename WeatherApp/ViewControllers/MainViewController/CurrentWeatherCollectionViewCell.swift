@@ -187,13 +187,15 @@ final class CurrentWeatherCollectionViewCell: UICollectionViewCell {
     private func setupLayouts() {
         
         //MARK: Label
-        addSubview(currentlyDateLabel)
-        addSubview(currentTempLabel)
-        addSubview(stateOfWeatherTextLabel)
+        add(subviews:
+                    currentlyDateLabel,
+                    currentTempLabel,
+                    stateOfWeatherTextLabel)
         
-        addSubview(locationNameLabel)
-        addSubview(stateOfWeatherImage)
-        addSubview(detailsOfCurrentWeatherStackView)
+        add(subviews:
+                    locationNameLabel,
+                    stateOfWeatherImage,
+                    detailsOfCurrentWeatherStackView)
         
         //MARK: StackViews
         detailsOfCurrentWeatherStackView.addArrangedSubview(speedAndPressureStackView)

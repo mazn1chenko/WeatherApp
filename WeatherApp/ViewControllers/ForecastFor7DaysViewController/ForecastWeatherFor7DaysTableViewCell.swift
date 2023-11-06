@@ -55,10 +55,11 @@ class ForecastWeatherFor7DaysTableViewCell: UITableViewCell {
     //MARK: setupLayouts
     
     private func setupLayouts() {
-        addSubview(nameOfDayLabel)
-        addSubview(stateOfWeatherImage)
-        addSubview(chanceOfRainLabel)
-        addSubview(minMaxTemperatureLabel)
+        add(subviews:
+                    nameOfDayLabel,
+                    stateOfWeatherImage,
+                    chanceOfRainLabel,
+                    minMaxTemperatureLabel)
         
         NSLayoutConstraint.activate([
             
